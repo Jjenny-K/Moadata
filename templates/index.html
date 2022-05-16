@@ -2,9 +2,48 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Moadata</title>
+    <link rel="stylesheet" href="/static/bootstrap.min.css">
+    <link rel="stylesheet" href="/static/style.css">
 </head>
 <body>
-
+    <h1 class="title">Moadata</h1>
+    <section id="upload-section" class="upload-section">
+        <form>
+            <div class="form-row">
+                <div class="col">
+                    <input type="text" class="form-control" placeholder="Job_name">
+                </div>
+                <div class="col">
+                    <input type="text" class="form-control" placeholder="Column name">
+                </div>
+                <button type="submit" class="btn btn-primary">Save</button>
+            </div>
+        </form>
+    </section>
+    <section id="upload-section2" class="upload-section">
+        <form action="/" enctype=multipart/form-data>
+            <div class="form-row">
+                <div class="custom-file col">
+                    <input type="file" class="custom-file-input" id="customFile">
+                    <label class="custom-file-label" for="customFile">Choose CSV</label>
+                </div>
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </div>
+        </form>
+    </section>
+    <section id="upload-section3" class="upload-section">
+        <form>
+            <div class="form-row">
+                <div class="col">
+                    <input type="text" class="form-control" placeholder="Job_id">
+                </div>
+                <button type="button" class="btn btn-danger">Delete</button>
+            </div>
+        </form>
+    </section>
 </body>
+<script defer src="/static/bootstrap.bundle.min.js"></script>
+<script defer src="//code.jquery.com/jquery-3.3.1.min.js"></script>
+<script defer src="/static/main.js"></script>
 </html>
