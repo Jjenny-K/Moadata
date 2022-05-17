@@ -8,9 +8,12 @@ $(document).ready(function () {
             console.log(response);
             jobs = response;
             indent = '&nbsp;&nbsp;&nbsp;&nbsp;'
-            for (let i = 0; jobs.length <= 30; i++) {
-                // console.log(jobs[i]);
-                let tempHtml = `<div>{<br>                                               
+            for (let i = 0; jobs.length; i++) {
+                let tempHtml = `<div>{<br>
+${indent}<span style='color:red'>jobid:</span> <span style="color:darkblue">${jobs[i].jobid}</span><br>   
+${indent}<span style='color:red'>job_name:</span> <span style="color:darkblue">${jobs[i].job_name}</span><br>
+${indent}<span style='color:red'>property:</span> <span style="color:darkblue">${jobs[i].property}</span><br>
+${indent}<span style='color:red'>task_list:</span> <span style="color:darkblue">${jobs[i].task_list}</span><br>                                               
                             }<br>
                             </div>`
                 jobList.innerHTML += tempHtml
@@ -53,7 +56,7 @@ function getJob() {
     }
     $.ajax({
         type: "GET",
-        url: `http://127.0.0.1:5000/jobs${jobId}`,
+        url: `http://127.0.0.1:5000?job=${jobId}`,
         success: function (response) {
             console.log(response);
             alert('조회 성공.');

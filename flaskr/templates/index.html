@@ -8,6 +8,29 @@
 </head>
 <body>
 <h1 class="title">Moadata</h1>
+<section id="upload-section" class="upload-section">
+    <form action="/jobs" method="POST">
+        <div class="form-row">
+            <div class="col">
+                <input type="text" class="form-control" placeholder="Job_name" name="job_name">
+            </div>
+            <div class="col">
+                <input type="text" class="form-control" placeholder="Column_name" name="column_name">
+            </div>
+            <select class="form-select" aria-label="Default select example">
+                <option selected>Select  Read  Task</option>
+                <option value="1">drop</option>
+                <option value="2">None</option>
+            </select>
+            <select class="form-select" aria-label="Default select example">
+                <option selected>Select  Drop  Task</option>
+                <option value="1">write</option>
+                <option value="2">None</option>
+            </select>
+            <button type="button" class="btn btn-primary">Save</button>
+        </div>
+    </form>
+</section>
 <section id="upload-section5" class="upload-section">
     <form method="POST">
         <div class="form-row">
@@ -24,19 +47,6 @@
         </div>
     </form>
 </section>
-<section id="upload-section" class="upload-section">
-    <form action="/jobs" method="POST">
-        <div class="form-row">
-            <div class="col">
-                <input type="text" class="form-control" placeholder="Job_name" name="job_name">
-            </div>
-            <div class="col">
-                <input type="text" class="form-control" placeholder="Column name" name="column_name">
-            </div>
-            <button type="button" class="btn btn-primary">Save</button>
-        </div>
-    </form>
-</section>
 <section id="upload-section2" class="upload-section">
     <form action="/csv" enctype="multipart/form-data" method="POST">
         <div class="form-row">
@@ -44,7 +54,20 @@
                 <label class="custom-file-label" for="csvFile">Choose CSV</label>
                 <input type="file" name="filename" class="custom-file-input" id="csvFile">
             </div>
+            <div class="col">
+                <input type="text" class="form-control job_name csv-job-id" placeholder="job_id">
+            </div>
             <button type="button" onclick="postCSV()" class="btn btn-primary">Submit</button>
+        </div>
+    </form>
+</section>
+<section id="upload-section3" class="upload-section">
+    <form method="POST">
+        <div class="form-row">
+            <div class="col">
+                <input type="text" class="form-control del-job-id" placeholder="Job_id">
+            </div>
+            <button type="button" onclick="jobDelete()" class="btn btn-danger">Delete</button>
         </div>
     </form>
 </section>
@@ -55,16 +78,6 @@
                 <input type="text" class="form-control get-job-id" placeholder="Job_id">
             </div>
             <button type="button" onclick="getJob()" class="btn btn-primary">GET</button>
-        </div>
-    </form>
-</section>
-<section id="upload-section3" class="upload-section">
-    <form method="POST" action="/jobs">
-        <div class="form-row">
-            <div class="col">
-                <input type="text" class="form-control del-job-id" placeholder="Job_id">
-            </div>
-            <button type="button" onclick="jobDelete()" class="btn btn-danger">Delete</button>
         </div>
     </form>
 </section>
