@@ -80,7 +80,6 @@ def create_app():  # put application's code here
 
             # task_list 마지막 단계 확인 후 해당 단계 실행
             last_task = list(task_list.keys())[-1]
-            last_task = 'drop'
 
             if last_task == 'read':
                 result = read(request_csv, read_path)
