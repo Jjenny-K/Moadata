@@ -3,25 +3,66 @@ $(document).ready(function () {
     jobList.innerHTML = "";
     $.ajax({
         type: "GET",
-        url: "https://dummyjson.com/products",
+        url: "http://127.0.0.1:5000/jobs",
         success: function (response) {
-            jobs = response.products;
+            console.log(response);
+            jobs = response;
             indent = '&nbsp;&nbsp;&nbsp;&nbsp;'
             for (let i = 0; jobs.length <= 30; i++) {
-                console.log(jobs[i]);
-                let tempHtml = `<div>{<br>
-                            <span style='color:red'>${indent}id:</span> <span style="color:darkblue">${jobs[i].id}</span><br>
-                            ${indent}<span style='color:red'>title:</span> <span style="color:darkblue">${jobs[i].title}</span><br>                          
+                // console.log(jobs[i]);
+                let tempHtml = `<div>{<br>                                               
                             }<br>
                             </div>`
-
                 jobList.innerHTML += tempHtml
                 if (i === 50) break;
             }
         }
-
     })
 });
+
+
+function fixJob() {
+    console.log("fixJob execute");
+    let jobId = $('.job_id').val();
+    let jobName = $('.job_name').val();
+    let columnName = $('.column_name').val();
+    console.log(jobId, jobName, columnName);
+    if (jobId === "" || jobName === "" || columnName === "") {
+        alert('값을 다 입력하세요');
+        return;
+    }
+    $.ajax({
+        type: "PUT",
+        url: `http://127.0.0.1:5000/job?jogId=${jobId}&column=${columnName}&name=${jobName}`,
+        success: function (response) {
+            console.log(response);
+            alert('조회 성공.');
+        },
+        error: function (data) {
+            alert("수정 실패");
+        }
+    })
+}
+
+function getJob() {
+    let jobId = $('.get-job-id').val();
+    console.log(jobId);
+    if (jobId === "") {
+        alert('값을 입력하세요.');
+        return;
+    }
+    $.ajax({
+        type: "DELETE",
+        url: `http://127.0.0.1:5000/jobs${jobId}`,
+        success: function (response) {
+            console.log(response);
+            alert('조회 성공.');
+        },
+        error: function (data) {
+            alert("조회 실패");
+        }
+    })
+};
 
 
 function postCSV() {
@@ -59,8 +100,7 @@ function jobDelete() {
     }
     $.ajax({
         type: "DELETE",
-        url: "http://127.0.0.1:5000/jobs",
-        data: {data: queryString},
+        url: `http://127.0.0.1:5000/job?jobId=${jobId}`,
         success: function (response) {
             console.log(response);
             alert('삭제되었습니다.');
