@@ -52,7 +52,7 @@ function getJob() {
         return;
     }
     $.ajax({
-        type: "DELETE",
+        type: "GET",
         url: `http://127.0.0.1:5000/jobs${jobId}`,
         success: function (response) {
             console.log(response);
