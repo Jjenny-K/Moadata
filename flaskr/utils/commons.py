@@ -1,8 +1,80 @@
 import csv
 from config import basedir
 
-from flask import jsonify
+from flask import jsonify, request, json
 import pandas as pd
+
+def task_list(read,drop):
+    """
+        task_list 추가
+    """
+    if read and drop:
+        tasklist = {
+            "read": [
+                "drop"
+            ],
+            "drop": [
+                "write"
+            ],
+            "write": []
+        }
+        return tasklist
+    elif read:
+        tasklist = {
+            "read": [
+                "drop"
+            ],
+            "drop": []
+        }
+        return tasklist
+    else:
+        tasklist = {
+            "read": []
+        }
+        return tasklist
+
+def apply(data):
+    """
+        json file에 변경된 data를 적용한 후 data를 반환
+    """
+    with open('job.json', 'w', encoding='utf-8') as file:
+            json.dump(data, file, indent="\t")
+    return jsonify(data)
+
+
+
+def form_data():
+    """
+        새로운 job 정보를 호출
+    """
+    job = request.args.get('name')
+    column = request.args.get('column')
+    return job, column
+
+
+
+def post_data(job, column):
+    """
+        새로운 job 생성
+    """
+    new = {
+    'jobid': uuid.uuid4(),
+    'job_name': job,
+    'task_list': {"read": ["drop"], "drop":["write"], "write":[]},
+    'property': {"read": {"task_name": "read", "filename" : "path/to/a.csv", "sep" :","}, \
+        "drop" : {"task_name": "drop", "column_name": column}, \
+        "write" : {"task_name": "write", "filename" : "path/to/b.csv", "sep": ","}}
+    }
+
+
+
+def bring_data():
+    """
+        전체 data를
+    """
+    with open('job.json') as f:
+        data = json.load(f)
+    return data
 
 
 def read(request_csv, read_path):
