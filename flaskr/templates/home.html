@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Moadata</title>
+    <link rel="stylesheet" href="../static/bootstrap.min.css">
+    <link rel="stylesheet" href="../static/style.css">
+</head>
+<body>
+<div class="head">
+    <h1>Moadata</h1>
+    <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+        <li class="nav-item-1" role="presentation">
+            <button class="nav-link nav-1 active" id="job-create" data-bs-toggle="pill" data-bs-target="#pills-home"
+                    type="button" role="tab" onclick="chooseTab1()">Job 생성
+            </button>
+        </li>
+        <li class="nav-item-2" role="presentation">
+            <button class="nav-link nav-2" id="job-edit" data-bs-toggle="pill" data-bs-target="#pills-profile"
+                    type="button" role="tab" onclick="chooseTab2()">Job 조회 수정 삭제
+            </button>
+        </li>
+        <li class="nav-item-3" role="presentation">
+            <button class="nav-link nav-3" id="csv-create" data-bs-toggle="pill" data-bs-target="#pills-contact"
+                    type="button" role="tab" onclick="chooseTab3()">GET CSV
+            </button>
+        </li>
+    </ul>
+</div>
+<div>
+    <div id="content-1">
+        <section id="upload-section" class="upload-section">
+            <form action="/jobs" method="POST">
+                <div class="form-row">
+                    <div class="col">
+                        <input type="text" class="form-control" placeholder="Job_name" name="job_name">
+                    </div>
+                    <div class="col">
+                        <input type="text" class="form-control" placeholder="Column name" name="column_name">
+                    </div>
+                    <select class="form-select" aria-label="Default select example">
+                        <option selected>Select Read Task</option>
+                        <option value="1">drop</option>
+                        <option value="2">None</option>
+                    </select>
+                    <select class="form-select" aria-label="Default select example">
+                        <option selected>Select Drop Task</option>
+                        <option value="1">write</option>
+                        <option value="2">None</option>
+                    </select>
+                    <button type="button" class="btn btn-primary">Save</button>
+                </div>
+            </form>
+        </section>
+    </div>
+    <div id="content-2">
+        <section id="upload-section4" class="upload-section">
+            <form method="GET">
+                <div class="form-row">
+                    <div class="col">
+                        <input type="text" class="form-control get-job-id" placeholder="Job_id">
+                    </div>
+                    <button type="button" onclick="getJob()" class="btn btn-primary">GET</button>
+                </div>
+            </form>
+        </section>
+        <section id="upload-section5" class="upload-section">
+            <form method="POST">
+                <div class="form-row">
+                    <div class="col">
+                        <input type="text" class="form-control job_id" placeholder="job_id">
+                    </div>
+                    <div class="col">
+                        <input type="text" class="form-control job_name" placeholder="job_name">
+                    </div>
+                    <div class="col">
+                        <input type="text" class="form-control column_name" placeholder="column_name">
+                    </div>
+                    <button type="button" onclick="fixJob()" class="btn btn-primary">PUT</button>
+                </div>
+            </form>
+        </section>
+        <section id="upload-section3" class="upload-section">
+            <form method="POST" action="/jobs">
+                <div class="form-row">
+                    <div class="col">
+                        <input type="text" class="form-control del-job-id" placeholder="Job_id">
+                    </div>
+                    <button type="button" onclick="jobDelete()" class="btn btn-danger">Delete</button>
+                </div>
+            </form>
+        </section>
+    </div>
+    <div id="content-3">
+        <section id="upload-section2" class="upload-section">
+            <form action="/csv" enctype="multipart/form-data" method="POST">
+                <div class="form-row">
+                    <div class="custom-file col">
+                        <label class="custom-file-label" for="csvFile">Choose CSV</label>
+                        <input type="file" name="filename" class="custom-file-input" id="csvFile">
+                    </div>
+                    <div class="col">
+                        <input type="text" class="form-control" placeholder="Job_id" name="job_id">
+                    </div>
+                    <button type="button" onclick="postCSV()" class="btn btn-primary">Submit</button>
+                </div>
+            </form>
+        </section>
+    </div>
+</div>
+</body>
+<script defer src="//code.jquery.com/jquery-3.3.1.min.js"></script>
+<script defer src="../static/bootstrap.bundle.min.js"></script>
+<script defer src="../static/main.js"></script>
+</html>

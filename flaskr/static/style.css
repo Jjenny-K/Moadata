@@ -15,3 +15,37 @@
     background-color: #F7F7F9;
     padding: 5rem;
 }
+
+
+/*
+    home.html -> css
+*/
+
+.head {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 5%;
+}
+
+
+.nav-pills {
+    display: flex;
+    justify-content: space-around;
+}
+
+
+.nav-link {
+    border: solid rgba(3, 5, 0, 0.21) 0.1px;
+}
+
+#content-1 {
+    display: block;
+}
+
+#content-2 {
+    display: none;
+}
+
+#content-3 {
+    display: none;
+}

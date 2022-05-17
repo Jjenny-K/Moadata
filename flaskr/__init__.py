@@ -16,7 +16,7 @@ def create_app():  # put application's code here
 
     @app.route('/')
     def home():
-        return render_template('index.html')
+        return render_template('home.html')
         # return jsonify({
         #     'api': 'api/task-running'
         # })
@@ -39,13 +39,13 @@ def create_app():  # put application's code here
 
 
     # job detail, update, delete
-    @app.route('/job/jobID=<int:jobID>', methods=['GET', 'PUT', 'DELETE'])
+    @app.route('/job/<int:jobID>', methods=['GET', 'PUT', 'DELETE'])
     def job_detail():
         try:
             data = bring_data()
             uuid = request.args.get('jobID')
-            print(uuid)
             if request.method == 'GET':
+                print(request.form)
                 return jsonify([ele for ele in data if ele['jobid'] == uuid][0])
 
 

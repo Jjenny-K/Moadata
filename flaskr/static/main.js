@@ -1,22 +1,21 @@
+const localhost = "http://127.0.0.1:5000";
+
+
 $(document).ready(function () {
     let jobList = document.querySelector('.job-list');
-    jobList.innerHTML = "";
+    // jobList.innerHTML = "";
     $.ajax({
         type: "GET",
-        url: "http://127.0.0.1:5000/jobs",
+        url: `${localhost}/jobs`,
         success: function (response) {
             console.log(response);
             jobs = response;
             indent = '&nbsp;&nbsp;&nbsp;&nbsp;'
             for (let i = 0; jobs.length; i++) {
-                let tempHtml = `<div>{<br>
-                    ${indent}<span style='color:red'>jobid:</span> <span style="color:darkblue">${jobs[i].jobid}</span><br>   
-                    ${indent}<span style='color:red'>job_name:</span> <span style="color:darkblue">${jobs[i].job_name}</span><br>
-                    ${indent}<span style='color:red'>property:</span> <span style="color:darkblue">${jobs[i].property}</span><br>
-                    ${indent}<span style='color:red'>task_list:</span> <span style="color:darkblue">${jobs[i].task_list}</span><br>                                               
+                let tempHtml = `<div>{<br>                                             
                             }<br>
                             </div>`
-                jobList.innerHTML += tempHtml
+
                 if (i === 50) break;
             }
         }
@@ -36,7 +35,7 @@ function fixJob() {
     }
     $.ajax({
         type: "PUT",
-        url: `http://127.0.0.1:5000/job?jogID=${jobId}&column=${columnName}&name=${jobName}`,
+        url: `${localhost}/job?jogID=${jobId}&column=${columnName}&name=${jobName}`,
         success: function (response) {
             console.log(response);
             alert('조회 성공.');
@@ -47,6 +46,7 @@ function fixJob() {
     })
 }
 
+
 function getJob() {
     let jobId = $('.get-job-id').val();
     console.log(jobId);
@@ -54,15 +54,16 @@ function getJob() {
         alert('값을 입력하세요.');
         return;
     }
+    let sendData = `{jobID: ${jobId}}`;
     $.ajax({
         type: "GET",
-        url: `http://127.0.0.1:5000/job/${jobId}`,
-
+        url: `${localhost}/job/${jobId}`,
+        data: sendData,
         success: function (response) {
             console.log(response);
             alert('조회 성공.');
         },
-        error: function (data) {
+        error: function () {
             alert("조회 실패");
         }
     })
@@ -80,7 +81,7 @@ function postCSV() {
     formData.append("file", fileInput.files[0]);
     $.ajax({
         type: 'POST',
-        url: "http://127.0.0.1:5000/csv",
+        url: `${localhost}/csv`,
         data: formData,
         contentType: false,
         processData: false,
@@ -95,6 +96,7 @@ function postCSV() {
         }
     })
 };
+
 
 function jobDelete() {
     let queryString = $('.del-job-id').val();
@@ -111,3 +113,51 @@ function jobDelete() {
         }
     })
 };
+
+
+function chooseTab1() {
+    let jobCreate = $('.nav-1');
+    let jobEdit = $('.nav-2');
+    let csvCreate = $('.nav-3');
+    let jobCreateContent = $('#content-1');
+    let jobEditContent = $('#content-2');
+    let csvCreateContent = $('#content-3')
+    if (!(jobCreate.hasClass('active'))) {jobCreate.addClass('active')};
+    jobEdit.removeClass('active');
+    csvCreate.removeClass('active');
+    jobCreateContent.css("display", "block");
+    jobEditContent.css("display", "none");
+    csvCreateContent.css("display", "none");
+}
+
+
+function chooseTab2() {
+    let jobCreate = $('.nav-1');
+    let jobEdit = $('.nav-2');
+    let csvCreate = $('.nav-3');
+    let jobCreateContent = $('#content-1');
+    let jobEditContent = $('#content-2');
+    let csvCreateContent = $('#content-3')
+    if (!(jobEdit.hasClass('active'))) {jobEdit.addClass('active')};
+    jobCreate.removeClass('active');
+    csvCreate.removeClass('active');
+    jobCreateContent.css("display", "none");
+    jobEditContent.css("display", "block");
+    csvCreateContent.css("display", "none");
+}
+
+
+function chooseTab3() {
+    let jobCreate = $('.nav-1');
+    let jobEdit = $('.nav-2');
+    let csvCreate = $('.nav-3');
+    let jobCreateContent = $('#content-1');
+    let jobEditContent = $('#content-2');
+    let csvCreateContent = $('#content-3')
+    if (!(csvCreate.hasClass('active'))) {csvCreate.addClass('active')};
+    jobCreate.removeClass('active');
+    jobEdit.removeClass('active');
+    jobCreateContent.css("display", "none");
+    jobEditContent.css("display", "none");
+    csvCreateContent.css("display", "block");
+}
