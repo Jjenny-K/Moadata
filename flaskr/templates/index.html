@@ -15,15 +15,15 @@
                 <input type="text" class="form-control" placeholder="Job_name" name="job_name">
             </div>
             <div class="col">
-                <input type="text" class="form-control" placeholder="Column_name" name="column_name">
+                <input type="text" class="form-control" placeholder="Column name" name="column_name">
             </div>
             <select class="form-select" aria-label="Default select example">
-                <option selected>Select  Read  Task</option>
+                <option selected>Select Read Task</option>
                 <option value="1">drop</option>
                 <option value="2">None</option>
             </select>
             <select class="form-select" aria-label="Default select example">
-                <option selected>Select  Drop  Task</option>
+                <option selected>Select Drop Task</option>
                 <option value="1">write</option>
                 <option value="2">None</option>
             </select>
@@ -55,19 +55,9 @@
                 <input type="file" name="filename" class="custom-file-input" id="csvFile">
             </div>
             <div class="col">
-                <input type="text" class="form-control job_name csv-job-id" placeholder="job_id">
+                <input type="text" class="form-control" placeholder="Job_id" name="job_id">
             </div>
             <button type="button" onclick="postCSV()" class="btn btn-primary">Submit</button>
-        </div>
-    </form>
-</section>
-<section id="upload-section3" class="upload-section">
-    <form method="POST">
-        <div class="form-row">
-            <div class="col">
-                <input type="text" class="form-control del-job-id" placeholder="Job_id">
-            </div>
-            <button type="button" onclick="jobDelete()" class="btn btn-danger">Delete</button>
         </div>
     </form>
 </section>
@@ -78,6 +68,16 @@
                 <input type="text" class="form-control get-job-id" placeholder="Job_id">
             </div>
             <button type="button" onclick="getJob()" class="btn btn-primary">GET</button>
+        </div>
+    </form>
+</section>
+<section id="upload-section3" class="upload-section">
+    <form method="POST" action="/jobs">
+        <div class="form-row">
+            <div class="col">
+                <input type="text" class="form-control del-job-id" placeholder="Job_id">
+            </div>
+            <button type="button" onclick="jobDelete()" class="btn btn-danger">Delete</button>
         </div>
     </form>
 </section>

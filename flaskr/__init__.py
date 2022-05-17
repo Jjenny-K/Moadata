@@ -95,3 +95,4 @@ def create_app():  # put application's code here
                 return result
 
     return app
+
