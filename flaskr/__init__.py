@@ -1,8 +1,9 @@
 from flask import Flask, jsonify, json, request, render_template
-
+from .helper import write, form_data, post_data, bring_data
 from flaskr.utils import read, drop, write
 
 import pandas as pd
+import uuid
 
 
 def create_app():  # put application's code here
@@ -15,9 +16,26 @@ def create_app():  # put application's code here
 
     @app.route('/')
     def home():
-        return jsonify({
-            'api': 'api/task-running'
-        })
+        return render_template('index.html')
+        # return jsonify({
+        #     'api': 'api/task-running'
+        # })
+
+    @app.route('/jobs', methods=['GET', 'POST'])
+    def jobs():
+        try:
+            data = bring_data()
+            if request.method == 'GET':
+                return jsonify(data)
+
+            if request.method == 'POST':
+                job, column = form_data()
+                new_job = post_data(job, column)
+
+                data.append(new_job)
+                return write(data)
+        except BaseException as e:
+            raise ValueError(f'해당하는 요청을 수행 할 수 없습니다, {e}')
 
     # job create, list
     @app.route('/job', methods=('GET', 'POST'))
@@ -39,10 +57,29 @@ def create_app():  # put application's code here
             return jsonify({'message': "hello!!"})
 
     # job detail, update, delete
-    @app.route('/job/<int:task_id>', methods=('GET', 'PUT', 'DELETE'))
+    @app.route('/job/<int:task_id>', methods=['GET', 'PUT', 'DELETE'])
     def job_detail():
-        if request.method == 'GET':
-            return 'Hello World!!'
+        try:
+            data = bring_data()
+            uuid = request.args.get('jobID')
+            if request.method == 'GET':
+                return jsonify([ele for ele in data if ele['jobid'] == uuid][0])
+
+
+            elif request.method == 'DELETE':
+                data.pop([i for i in range(len(data)) if data[i]['jobid'] == uuid][0])
+                return write(data)
+
+
+            elif request.method == 'PUT':
+                for ele in data:
+                    if ele['jobid'] == uuid:
+                        ele['job_name'] = request.args.get('jobName')
+                        ele['column'] = request.args.get('columnName')
+                return write(data)
+        except BaseException as e:
+            raise ValueError(f'해당하는 jobid의 값을 수행 할 수 없습니다, {e}')
+
 
     # job implement
     @app.route('/api/task-running', methods=('GET', 'POST'))
