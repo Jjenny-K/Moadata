@@ -4,6 +4,7 @@
 
 # about data
 job.json
+**/data/
 
 ### Flask ###
 instance/*

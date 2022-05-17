@@ -1,19 +1,23 @@
-import csv
+from flask import Flask, jsonify, json, request, render_template
 
-from flask import Flask, jsonify, json, request, send_file
+from flaskr.utils import read, drop, write
 
 import pandas as pd
 
+
 def create_app():  # put application's code here
     app = Flask(__name__)
+    app.config['JSON_AS_ASCII'] = False
 
     app.config.from_mapping(
         SECRET_KEY='key'
     )
 
-    @app.route('/good')
-    def hello_world():
-        return jsonify({'message': 'Hello, World!'})
+    @app.route('/')
+    def home():
+        return jsonify({
+            'api': 'api/task-running'
+        })
 
     # job create, list
     @app.route('/job', methods=('GET', 'POST'))
@@ -40,72 +44,55 @@ def create_app():  # put application's code here
         if request.method == 'GET':
             return 'Hello World!!'
 
-    # csv > DataFrame 리턴
-    def _read(request_csv):
-        print('read')
-        # csv_dicts = [{k: v for k, v in row.items()}
-        #              for row in csv.DictReader(request_csv.splitlines(), skipinitialspace=True)]
-        if request_csv.content_type != 'text/csv':
-            return jsonify({'error message': "CSV 파일을 업로드하세요"})
-        return pd.read_csv(request_csv)
-
-    # 지정된 컬럼을 제거한 DataFrame 리턴
-    def _drop(request_csv, column_name):
-        print('drop')
-        df_csv = _read(request_csv)
-        return df_csv.drop(columns=[column_name], inplace=True)
-
-    # 지정된 파일 경로로 csv 파일 저장
-    def _write(request_csv, column_name, write_path):
-        print('write')
-        df_csv = _drop(request_csv, column_name)
-        save_file = df_csv.to_csv(write_path, encoding='utf-8')
-        return send_file(save_file,
-                         mimetypes='text/csv',
-                         attachment_filename='download_csv.csv',
-                         as_attachment=True
-                         )
-
     # job implement
-    @app.route('/task', methods=('GET', 'POST'))
+    @app.route('/api/task-running', methods=('GET', 'POST'))
     def task():
         """
             작성자 : 강정희
+            리뷰어 : 이형준
             변환을 원하는 csv 파일과 task 정보를 request 받아 task 수행 후 결과 반환
         """
+        if request.method == 'GET':
+            return render_template("index.html")
+
         if request.method == 'POST':
-            request_csv = request.files['fileupload'].read()
-            job_id = request.form.get('job_id')
-            # request_csv = ''
-            # job_id = 1
+            request_csv = request.files['fileupload']
+            job_id = int(request.form.get('job_id'))
+
+            # request_csv 형식 예외처리
+            if request_csv.content_type != 'text/csv':
+                return jsonify({'error message': "CSV 파일을 업로드하세요."})
 
             # job_id와 맞는 task list check
-            with open("static/job.json", "r", encoding='utf-8') as f:
+            with open("flaskr/static/job.json", "r", encoding='utf-8') as f:
                 jsondata = f.read()
                 objs = json.loads(jsondata)
 
                 for idx, value in enumerate(objs):
                     if value['jobid'] == job_id:
                         task_list = value['task_list']
+                        read_path = value['property']['read']['filename']
                         column_name = value['property']['drop']['column_name']
                         write_path = value['property']['write']['filename']
                         break
+                    else:
+                        return jsonify({'error message': "지정한 작업이 없습니다."})
 
             # task_list 마지막 단계 확인 후 해당 단계 실행
             last_task = list(task_list.keys())[-1]
+            last_task = 'drop'
 
             if last_task == 'read':
-                result = _read(request_csv)
+                result = read(request_csv, read_path)
             elif last_task == 'drop':
-                result = _drop(request_csv, column_name)
+                result = drop(request_csv, read_path, column_name)
+                result_chk = type(result) == pd.core.frame.DataFrame
             elif last_task == 'write':
-                result = _write(request_csv, column_name, write_path)
+                result = write(request_csv, read_path, column_name, write_path)
 
-            if last_task == 'read' or last_task == 'drop':
+            if last_task == 'read' or (last_task == 'drop' and result_chk):
                 return result.to_html()
             else:
                 return result
-
-            # return 'Hello World!!'
 
     return app
