@@ -49,21 +49,27 @@ function fixJob() {
 
 function getJob() {
     let jobId = $('.get-job-id').val();
+    let jobIdSection = $('.christ')
+    console.log(jobIdSection);
     console.log(jobId);
     if (jobId === "") {
         alert('값을 입력하세요.');
         return;
     }
-    let sendData = `{jobID: ${jobId}}`;
+    let jobID = `{"jobID": ${jobId}}`;
     $.ajax({
-        type: "GET",
-        url: `${localhost}/job/${jobId}`,
-        data: sendData,
+        type: "POST",
+        url: `${localhost}/jobs/${jobId}`,
+        data: JSON.stringify(jobID),
+        contentType: 'application/json',
         success: function (response) {
             console.log(response);
             alert('조회 성공.');
+            jobIdSection.empty()
+            jobIdSection.append(`<div>${response}</div>`)
         },
         error: function () {
+            jobIdSection.empty()
             alert("조회 실패");
         }
     })

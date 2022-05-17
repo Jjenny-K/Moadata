@@ -39,14 +39,20 @@ def create_app():  # put application's code here
 
 
     # job detail, update, delete
-    @app.route('/job/<int:jobID>', methods=['GET', 'PUT', 'DELETE'])
-    def job_detail():
+    @app.route('/jobs/<int:jobID>', methods=['POST', 'PUT', 'DELETE'])
+    def job_detail(jobID):
+        print('job_detail execute')
         try:
             data = bring_data()
-            uuid = request.args.get('jobID')
-            if request.method == 'GET':
-                print(request.form)
-                return jsonify([ele for ele in data if ele['jobid'] == uuid][0])
+            str_job_id = request.get_json()
+            uuid = json.loads(str_job_id)
+            job_id = uuid['jobID']
+            if request.method == 'POST':
+                for d in data:
+                    if d['jobid'] == job_id:
+                        res = d
+                        return json.dumps(res)
+                return None
 
 
             elif request.method == 'DELETE':
