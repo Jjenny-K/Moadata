@@ -37,31 +37,14 @@ def create_app():  # put application's code here
         except BaseException as e:
             raise ValueError(f'해당하는 요청을 수행 할 수 없습니다, {e}')
 
-    # job create, list
-    @app.route('/job', methods=('GET', 'POST'))
-    def job():
-        if request.method == 'GET':
-            with open("static/job.json", "r", encoding='utf-8') as f:
-                jsondata = f.read()
-                objs = json.loads(jsondata)
-
-            return jsonify({'message': objs})
-        if request.method == 'POST':
-            with open("static/job.json", "r", encoding='utf-8') as f:
-                jsondata = f.read()
-                objs = json.dumps(json.loads(jsondata))
-
-            with open("static/job.json", "a", encoding='utf-8') as f:
-                f.write(objs)
-
-            return jsonify({'message': "hello!!"})
 
     # job detail, update, delete
-    @app.route('/job/<int:task_id>', methods=['GET', 'PUT', 'DELETE'])
+    @app.route('/job/jobID=<int:jobID>', methods=['GET', 'PUT', 'DELETE'])
     def job_detail():
         try:
             data = bring_data()
             uuid = request.args.get('jobID')
+            print(uuid)
             if request.method == 'GET':
                 return jsonify([ele for ele in data if ele['jobid'] == uuid][0])
 
@@ -79,6 +62,26 @@ def create_app():  # put application's code here
                 return write(data)
         except BaseException as e:
             raise ValueError(f'해당하는 jobid의 값을 수행 할 수 없습니다, {e}')
+
+
+    # # job create, list
+    # @app.route('/job', methods=('GET', 'POST'))
+    # def job():
+    #     if request.method == 'GET':
+    #         with open("static/job.json", "r", encoding='utf-8') as f:
+    #             jsondata = f.read()
+    #             objs = json.loads(jsondata)
+    #
+    #         return jsonify({'message': objs})
+    #     if request.method == 'POST':
+    #         with open("static/job.json", "r", encoding='utf-8') as f:
+    #             jsondata = f.read()
+    #             objs = json.dumps(json.loads(jsondata))
+    #
+    #         with open("static/job.json", "a", encoding='utf-8') as f:
+    #             f.write(objs)
+    #
+    #         return jsonify({'message': "hello!!"})
 
 
     # job implement
