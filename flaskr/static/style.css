@@ -10,3 +10,9 @@
     align-items: center;
     margin-top: 5%;
 }
+.job-list {
+    align-items: center;
+    background-color: #F7F7F9;
+    height: 100%;
+    padding: 5rem;
+}

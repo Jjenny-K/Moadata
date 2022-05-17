@@ -3,13 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <title>Moadata</title>
-    <link rel="stylesheet" href="/static/bootstrap.min.css">
-    <link rel="stylesheet" href="/static/style.css">
+    <link rel="stylesheet" href="../static/bootstrap.min.css">
+    <link rel="stylesheet" href="../static/style.css">
 </head>
 <body>
     <h1 class="title">Moadata</h1>
     <section id="upload-section" class="upload-section">
-        <form action="/api/job" method="POST">
+        <form action="/jobs" method="POST">
             <div class="form-row">
                 <div class="col">
                     <input type="text" class="form-control" placeholder="Job_name" name="job_name">
@@ -22,28 +22,31 @@
         </form>
     </section>
     <section id="upload-section2" class="upload-section">
-        <form action="/csv" enctype=multipart/form-data method="POST">
+        <form action="/csv" enctype="multipart/form-data" method="POST">
             <div class="form-row">
                 <div class="custom-file col">
-                    <input type="file" name="filename" class="custom-file-input" id="customFile">
-                    <label class="custom-file-label" for="customFile">Choose CSV</label>
+                    <label class="custom-file-label" for="csvFile">Choose CSV</label>
+                    <input type="file" name="filename" class="custom-file-input" id="csvFile">
                 </div>
-                <button type="submit" class="btn btn-primary">Submit</button>
+                <button type="button" onclick="postCSV()" class="btn btn-primary">Submit</button>
             </div>
         </form>
     </section>
     <section id="upload-section3" class="upload-section">
-        <form method="POST" action="">
+        <form method="POST" action="/jobs">
             <div class="form-row">
                 <div class="col">
-                    <input type="text" class="form-control" placeholder="Job_id">
+                    <input type="text" class="form-control del-job-id" placeholder="Job_id">
                 </div>
-                <button type="button" class="btn btn-danger">Delete</button>
+                <button type="button" onclick="jobDelete()" class="btn btn-danger">Delete</button>
             </div>
         </form>
     </section>
+    <section class="upload-section">
+        <div class="job-list"></div>
+    </section>
 </body>
 <script defer src="//code.jquery.com/jquery-3.3.1.min.js"></script>
-<script defer src="/static/bootstrap.bundle.min.js"></script>
-<script defer src="/static/main.js"></script>
+<script defer src="../static/bootstrap.bundle.min.js"></script>
+<script defer src="../static/main.js"></script>
 </html>
