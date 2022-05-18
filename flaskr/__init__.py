@@ -17,8 +17,8 @@ job_view = JobView.as_view('detailjob')
 app.add_url_rule('/', view_func=home_view)
 app.add_url_rule('/api/task-running', view_func=task_view)
 app.add_url_rule('/api/jobs', methods=['POST'], view_func=job_view)
-app.add_url_rule('/api/jobs', methods=['GET'], defaults={'job_id':None} ,view_func=job_view)
-app.add_url_rule('/api/job/<job_id>', methods=['GET','PATCH', 'DELETE'], view_func=job_view)
+app.add_url_rule('/api/jobs', methods=['GET'] ,view_func=job_view)
+app.add_url_rule('/api/job', methods=['GET','PATCH', 'DELETE'], view_func=job_view)
 
 
 

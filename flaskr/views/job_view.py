@@ -1,12 +1,14 @@
 from flask.views import MethodView
 from flask import jsonify, request
-from flaskr.utils import petch_data, form_data, post_data, get_all_jobs
+from flaskr.utils import petch_data, form_data, post_data, get_all_jobs, get_single_id
 
 
 class JobView(MethodView):
     data = get_all_jobs()
 
-    def get(self, job_id):
+    def get(self):
+        job_id = get_single_id()
+        
         if job_id:
             return jsonify([ ele for ele in self.data if ele['jobid'] == job_id ][0]), 200
         else:
@@ -19,12 +21,16 @@ class JobView(MethodView):
         petch_data(self.data)
         return jsonify(self.data), 201
 
-    def delete(self, job_id):
+    def delete(self):
+        job_id = get_single_id()
+
         self.data.pop([ i for i in range(len(self.data)) if self.data[i]['jobid'] == job_id  ][0])
         return petch_data(self.data), 200
 
 
-    def patch(self, job_id):
+    def patch(self):
+        job_id = get_single_id()
+
         query = request.args.to_dict()
         job = query.get('name') 
         column = query.get('column')

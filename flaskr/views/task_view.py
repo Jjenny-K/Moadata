@@ -57,6 +57,7 @@ class TaskRunView(View):
             # 모든 데이터의 흐름은 'read'로 시작한다고 가정
             first_task = 'read'
 
-            result = self.run(job, first_task, task_processor=None, csv=request_csv).to_csv(index=False)
-
-            return Response(result, status=201, mimetype='application/json')
+            if type(result) == pd.core.frame.DataFrame:
+                return Response(result.to_csv(index=False), status=201, mimetype='application/json')
+            else:
+                return result

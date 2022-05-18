@@ -10,10 +10,14 @@ def form_data():
         작성자 : 김채욱
         클라이언트가 입력한 새로운 job 정보를 호출
     """
-    job = request.args.get('name')
-    column = request.args.get('column')
-    return job, column
-
+    query = request.args.to_dict()
+    job = query.get('name') 
+    column = query.get('column')   
+    file = query.get('file')   
+    read = query.get('read')   
+    drop = query.get('drop')  
+    task = task_list(read, drop)
+    return job, column, file, task
 
 def task_list(read, drop):
     """
@@ -65,6 +69,11 @@ def petch_data(data):
     with open('flaskr/data/job.json', 'w', encoding='utf-8') as file:
             json.dump(data, file, indent="\t")
     return jsonify(data)
+
+def get_single_id():
+    query = request.args.to_dict()
+    job_id = query.get('job_id')
+    return job_id
 
 
 def get_all_jobs():
