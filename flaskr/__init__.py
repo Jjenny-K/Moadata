@@ -15,9 +15,14 @@ def create_app():  # put application's code here
     )
 
 
-    @app.route('/')
+    @app.route('/', methods=['GET', 'POST'])
     def home():
-        return render_template('create_job.html')
+        if request.method == 'GET':
+            return render_template('create_job.html')
+        if request.method == 'POST':
+            data = bring_data()
+            print(data)
+            return jsonify(data)
         # return jsonify({
         #     'api': 'api/task-running'
         # })
@@ -32,7 +37,6 @@ def create_app():  # put application's code here
             if request.method == 'POST':
                 job, column = form_data()
                 new_job = post_data(job, column)
-
                 data.append(new_job)
                 return write(data)
         except BaseException as e:

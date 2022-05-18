@@ -20,13 +20,13 @@ $(document).ready(function () {
 
     console.log(`url1: ${url1}`);
     console.log(`url2: ${url2}`);
-    console.log(`url3:` ${url3});
+    console.log(`url3: ${url3}`);
     if (url === url1) {
         let jobList = $('.job-list');
         jobList.empty();
         $.ajax({
-            type: "GET",
-            url: `${localhost}/jobs`,
+            type: "POST",
+            url: `${localhost}/`,
             success: function (response) {
                 console.log(response);
                 jobs = response;
@@ -43,37 +43,23 @@ $(document).ready(function () {
     else if (url === url2) {
         let jobList = $('.job-list');
         jobList.empty();
-        $.ajax({
-            type: "GET",
-            url: `${localhost}/jobs`,
-            success: function (response) {
-                console.log(response);
-                jobs = response;
-                for (let i = 0; i < jobs.length; i++) {
-                    if (jobs[i] !== null) {
-                        job = JSON.stringify(jobs[i])
-                        let tempHtml = `<div>${job}</div><br><br>`
-                        jobList.append(tempHtml)
-                    }
-                }
-            }
-        })
+
     } else if (url === url3) {
         let jobList = $('.job-list');
         jobList.empty();
-        $.ajax({
-            type: "GET",
-            url: `${localhost}/api/task-running`,
-            success: function (response) {
-                console.log('url3')
-                console.log(response);
-            }
-        })
+
     }
     else if (url === url4) {
         return;
     }
 });
+
+function putJob() {
+    let jobId = $('.job_id').val();
+    let jobName = $('.job_name').val();
+    let columName = $('.column_name').val();
+
+}
 
 
 function fixJob() {
