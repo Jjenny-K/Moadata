@@ -66,7 +66,8 @@ def petch_data(data):
         작성자 : 김채욱
         job.json file에 변경된 data를 적용한 후 변경된 data를 반환
     """
-    with open('flaskr/data/job.json', 'w', encoding='utf-8') as file:
+    FILE_PATH = './job.json'
+    with open(FILE_PATH, 'w', encoding='utf-8') as file:
             json.dump(data, file, indent="\t")
     return jsonify(data)
 
@@ -81,7 +82,8 @@ def get_all_jobs():
         작성자 : 김채욱
         job.json file에 전체 data 반환
     """
-    with open('flaskr/data/job.json') as f:
+    FILE_PATH = './job.json'
+    with open(FILE_PATH) as f:
         data = json.load(f)
     return data
 
