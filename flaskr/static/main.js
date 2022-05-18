@@ -1,25 +1,78 @@
 const localhost = "http://127.0.0.1:5000";
 
+function splitUrlen(url) {
+    let arr = url.split('jobs/');
+    return arr.length;
+}
+
 
 $(document).ready(function () {
-    let jobList = document.querySelector('.job-list');
-    // jobList.innerHTML = "";
-    $.ajax({
-        type: "GET",
-        url: `${localhost}/jobs`,
-        success: function (response) {
-            console.log(response);
-            jobs = response;
-            indent = '&nbsp;&nbsp;&nbsp;&nbsp;'
-            for (let i = 0; jobs.length; i++) {
-                let tempHtml = `<div>{<br>                                             
-                            }<br>
-                            </div>`
+    let url = document.location.href;
+    console.log(url);
+    let num = "";
+    if (splitUrlen(url) === 2) {
+        num = url.split(url)[1]
+    }
+    let url1 = `${localhost}/`
+    let url2 = `${localhost}/jobs`
+    let url3 = `${localhost}/jobs/${num}`
+    let url4 = `${localhost}/api/task-running`;
 
-                if (i === 50) break;
+    console.log(`url1: ${url1}`);
+    console.log(`url2: ${url2}`);
+    console.log(`url3:` ${url3});
+    if (url === url1) {
+        let jobList = $('.job-list');
+        jobList.empty();
+        $.ajax({
+            type: "GET",
+            url: `${localhost}/jobs`,
+            success: function (response) {
+                console.log(response);
+                jobs = response;
+                for (let i = 0; i < jobs.length; i++) {
+                    if (jobs[i] !== null) {
+                        job = JSON.stringify(jobs[i])
+                        let tempHtml = `<div>${job}</div><br><br>`
+                        jobList.append(tempHtml)
+                    }
+                }
             }
-        }
-    })
+        })
+    }
+    else if (url === url2) {
+        let jobList = $('.job-list');
+        jobList.empty();
+        $.ajax({
+            type: "GET",
+            url: `${localhost}/jobs`,
+            success: function (response) {
+                console.log(response);
+                jobs = response;
+                for (let i = 0; i < jobs.length; i++) {
+                    if (jobs[i] !== null) {
+                        job = JSON.stringify(jobs[i])
+                        let tempHtml = `<div>${job}</div><br><br>`
+                        jobList.append(tempHtml)
+                    }
+                }
+            }
+        })
+    } else if (url === url3) {
+        let jobList = $('.job-list');
+        jobList.empty();
+        $.ajax({
+            type: "GET",
+            url: `${localhost}/api/task-running`,
+            success: function (response) {
+                console.log('url3')
+                console.log(response);
+            }
+        })
+    }
+    else if (url === url4) {
+        return;
+    }
 });
 
 
@@ -76,34 +129,6 @@ function getJob() {
 };
 
 
-function postCSV() {
-    let fileInput = $('#csvFile')[0];
-    console.log("fileInput: ", fileInput.files);
-    if (fileInput.files.length === 0) {
-        alert("파일을 선택해주세요");
-        return;
-    }
-    let formData = new FormData();
-    formData.append("file", fileInput.files[0]);
-    $.ajax({
-        type: 'POST',
-        url: `${localhost}/csv`,
-        data: formData,
-        contentType: false,
-        processData: false,
-        cache: false,
-        success: function (data) {
-            alert("성공");
-            console.log(data.message);
-        },
-        error: function (data) {
-            alert("실패");
-            console.log(data.message);
-        }
-    })
-};
-
-
 function jobDelete() {
     let queryString = $('.del-job-id').val();
     if (queryString === "") {
@@ -121,49 +146,7 @@ function jobDelete() {
 };
 
 
-function chooseTab1() {
-    let jobCreate = $('.nav-1');
-    let jobEdit = $('.nav-2');
-    let csvCreate = $('.nav-3');
-    let jobCreateContent = $('#content-1');
-    let jobEditContent = $('#content-2');
-    let csvCreateContent = $('#content-3')
-    if (!(jobCreate.hasClass('active'))) {jobCreate.addClass('active')};
-    jobEdit.removeClass('active');
-    csvCreate.removeClass('active');
-    jobCreateContent.css("display", "block");
-    jobEditContent.css("display", "none");
-    csvCreateContent.css("display", "none");
-}
-
-
-function chooseTab2() {
-    let jobCreate = $('.nav-1');
-    let jobEdit = $('.nav-2');
-    let csvCreate = $('.nav-3');
-    let jobCreateContent = $('#content-1');
-    let jobEditContent = $('#content-2');
-    let csvCreateContent = $('#content-3')
-    if (!(jobEdit.hasClass('active'))) {jobEdit.addClass('active')};
-    jobCreate.removeClass('active');
-    csvCreate.removeClass('active');
-    jobCreateContent.css("display", "none");
-    jobEditContent.css("display", "block");
-    csvCreateContent.css("display", "none");
-}
-
-
-function chooseTab3() {
-    let jobCreate = $('.nav-1');
-    let jobEdit = $('.nav-2');
-    let csvCreate = $('.nav-3');
-    let jobCreateContent = $('#content-1');
-    let jobEditContent = $('#content-2');
-    let csvCreateContent = $('#content-3')
-    if (!(csvCreate.hasClass('active'))) {csvCreate.addClass('active')};
-    jobCreate.removeClass('active');
-    jobEdit.removeClass('active');
-    jobCreateContent.css("display", "none");
-    jobEditContent.css("display", "none");
-    csvCreateContent.css("display", "block");
+function addFileName() {
+    let fileBox = $('.file-box');
+    fileBox.on('change', )
 }

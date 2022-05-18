@@ -11,15 +11,11 @@
     margin-top: 5%;
 }
 .job-list {
-    align-items: center;
+    text-align: center;
     background-color: #F7F7F9;
     padding: 5rem;
 }
 
-
-/*
-    home.html -> css
-*/
 
 .head {
     display: flex;
@@ -43,9 +39,13 @@
 }
 
 #content-2 {
-    display: none;
+    display: block;
 }
 
 #content-3 {
-    display: none;
+    display: block;
+}
+
+a:hover {
+    text-decoration-line: none;
 }

@@ -14,20 +14,21 @@ def create_app():  # put application's code here
         SECRET_KEY='key'
     )
 
+
     @app.route('/')
     def home():
-        return render_template('home.html')
+        return render_template('create_job.html')
         # return jsonify({
         #     'api': 'api/task-running'
         # })
+
 
     @app.route('/jobs', methods=['GET', 'POST'])
     def jobs():
         try:
             data = bring_data()
             if request.method == 'GET':
-                return jsonify(data)
-
+                return render_template('modify_job.html')
             if request.method == 'POST':
                 job, column = form_data()
                 new_job = post_data(job, column)
@@ -99,7 +100,7 @@ def create_app():  # put application's code here
             변환을 원하는 csv 파일과 task 정보를 request 받아 task 수행 후 결과 반환
         """
         if request.method == 'GET':
-            return render_template("index.html")
+            return render_template("get_csv.html")
 
         if request.method == 'POST':
             request_csv = request.files['fileupload']
