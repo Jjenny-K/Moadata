@@ -2,7 +2,7 @@ import pandas as pd
 
 from flask import request, Response
 from flask.views import View
-from flaskr.utils import TaskRunningProcessor, bring_data, get_single_job
+from flaskr.utils import TaskRunningProcessor, get_all_jobs, get_single_job
 
 
 class TaskRunView(View):
@@ -48,7 +48,7 @@ class TaskRunView(View):
 
             # job_id와 맞는 task list check
             try:
-                data = bring_data()
+                data = get_all_jobs()
                 job = get_single_job(data, job_id)
             except Exception as e:
                 return Response("{'error message': '지정한 작업이 없습니다.'}", status=400, mimetype='application/json')
@@ -57,6 +57,7 @@ class TaskRunView(View):
             # 모든 데이터의 흐름은 'read'로 시작한다고 가정
             first_task = 'read'
 
-            result = self.run(job, first_task, task_processor=None, csv=request_csv).to_csv(index=False)
-
-            return Response(result, status=201, mimetype='application/json')
+            if type(result) == pd.core.frame.DataFrame:
+                return Response(result.to_csv(index=False), status=201, mimetype='application/json')
+            else:
+                return result

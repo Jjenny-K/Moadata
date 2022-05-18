@@ -10,10 +10,14 @@ def form_data():
         작성자 : 김채욱
         클라이언트가 입력한 새로운 job 정보를 호출
     """
-    job = request.args.get('name')
-    column = request.args.get('column')
-    return job, column
-
+    query = request.args.to_dict()
+    job = query.get('name') 
+    column = query.get('column')   
+    file = query.get('file')   
+    read = query.get('read')   
+    drop = query.get('drop')  
+    task = task_list(read, drop)
+    return job, column, file, task
 
 def task_list(read, drop):
     """
@@ -57,22 +61,29 @@ def post_data(job, column):
     return new
 
 
-def apply(data):
+def petch_data(data):
     """
         작성자 : 김채욱
         job.json file에 변경된 data를 적용한 후 변경된 data를 반환
     """
-    with open('flaskr/data/job.json', 'w', encoding='utf-8') as file:
+    FILE_PATH = './job.json'
+    with open(FILE_PATH, 'w', encoding='utf-8') as file:
             json.dump(data, file, indent="\t")
     return jsonify(data)
 
+def get_single_id():
+    query = request.args.to_dict()
+    job_id = query.get('job_id')
+    return job_id
 
-def bring_data():
+
+def get_all_jobs():
     """
         작성자 : 김채욱
         job.json file에 전체 data 반환
     """
-    with open('flaskr/data/job.json') as f:
+    FILE_PATH = './job.json'
+    with open(FILE_PATH) as f:
         data = json.load(f)
     return data
 
