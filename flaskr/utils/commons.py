@@ -57,7 +57,7 @@ def post_data(job, column):
     return new
 
 
-def apply(data):
+def petch_data(data):
     """
         작성자 : 김채욱
         job.json file에 변경된 data를 적용한 후 변경된 data를 반환
@@ -67,7 +67,7 @@ def apply(data):
     return jsonify(data)
 
 
-def bring_data():
+def get_all_jobs():
     """
         작성자 : 김채욱
         job.json file에 전체 data 반환

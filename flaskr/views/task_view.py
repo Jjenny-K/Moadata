@@ -2,7 +2,7 @@ import pandas as pd
 
 from flask import request, Response
 from flask.views import View
-from flaskr.utils import TaskRunningProcessor, bring_data, get_single_job
+from flaskr.utils import TaskRunningProcessor, get_all_jobs, get_single_job
 
 
 class TaskRunView(View):
@@ -48,7 +48,7 @@ class TaskRunView(View):
 
             # job_id와 맞는 task list check
             try:
-                data = bring_data()
+                data = get_all_jobs()
                 job = get_single_job(data, job_id)
             except Exception as e:
                 return Response("{'error message': '지정한 작업이 없습니다.'}", status=400, mimetype='application/json')
