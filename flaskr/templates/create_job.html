@@ -18,12 +18,12 @@
             </a>
         </li>
         <li class="nav-item-2" role="presentation">
-            <a href="/jobs"><button class="nav-link nav-2" id="job-edit" data-bs-toggle="pill" data-bs-target="#pills-profile"
+            <a href="/api/edit"><button class="nav-link nav-2" id="job-edit" data-bs-toggle="pill" data-bs-target="#pills-profile"
                     type="button" role="tab">Job 조회 수정 삭제
             </button></a>
         </li>
         <li class="nav-item-3" role="presentation">
-            <a href="/api/task-running">
+            <a href="/api/csv">
                 <button class="nav-link nav-3" id="csv-create" data-bs-toggle="pill" data-bs-target="#pills-contact"
                         type="button" role="tab">GET CSV
                 </button>
@@ -34,28 +34,28 @@
 <div class="job-list">
     <div id="content-1">
         <section id="upload-section" class="upload-section">
-            <form action="/jobs" method="POST">
+            <form name="jobCreateForm" method="POST">
                 <div class="form-row">
                     <div class="col">
-                        <input type="text" class="form-control" placeholder="Job_name" name="job_name">
+                        <input type="text" class="form-control get-job-name" placeholder="Job_name" name="job">
                     </div>
                     <div class="col">
-                        <input type="text" class="form-control" placeholder="Column name" name="column_name">
+                        <input type="text" class="form-control get-column-name" placeholder="Column name" name="column">
                     </div>
                     <div class="col">
-                        <input type="text" class="form-control" placeholder="File Path" name="column_name">
+                        <input type="text" class="form-control get-file-path" placeholder="File Path" name="file">
                     </div>
-                    <select class="form-select" aria-label="Default select example">
+                    <select class="form-select read-task" name='read' aria-label="Default select example">
                         <option selected>Select Read Task</option>
-                        <option value="1">drop</option>
-                        <option value="2">None</option>
+                        <option value="drop">drop</option>
+                        <option value="None">None</option>
                     </select>
-                    <select class="form-select" aria-label="Default select example">
+                    <select class="form-select drop-task" name='drop' aria-label="Default select example">
                         <option selected>Select Drop Task</option>
-                        <option value="1">write</option>
-                        <option value="2">None</option>
+                        <option value="write">write</option>
+                        <option value="None">None</option>
                     </select>
-                    <button type="button" class="btn btn-primary">Save</button>
+                    <button type="button" class="btn btn-primary" onclick="postJob()">POST</button>
                 </div>
             </form>
         </section>

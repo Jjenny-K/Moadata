@@ -1,12 +1,13 @@
 const localhost = "http://127.0.0.1:5000";
 
+
 function splitUrlen(url) {
     let arr = url.split('jobs/');
     return arr.length;
 }
 
 
-$(document).ready(function () {
+function guideUrl() {
     let url = document.location.href;
     console.log(url);
     let num = "";
@@ -39,8 +40,7 @@ $(document).ready(function () {
                 }
             }
         })
-    }
-    else if (url === url2) {
+    } else if (url === url2) {
         let jobList = $('.job-list');
         jobList.empty();
 
@@ -48,22 +48,42 @@ $(document).ready(function () {
         let jobList = $('.job-list');
         jobList.empty();
 
-    }
-    else if (url === url4) {
+    } else if (url === url4) {
         return;
     }
-});
+};
 
-function putJob() {
-    let jobId = $('.job_id').val();
-    let jobName = $('.job_name').val();
-    let columName = $('.column_name').val();
 
+function postJob() {
+    let jobName = $('.get-job-name').val();
+    let columnName = $('.get-column-name').val();
+    let filePath = $('.get-file-path').val();
+    if (jobName === "" || columnName === "" || filePath === "") {
+        alert('값을 모두 입력하시고 Task를 반드시 선택해주세요')
+        return;
+    }
+    let readTask = $('.read-task').val();
+    let dropTask = $('.drop-task').val();
+    if (readTask === 'Select Read Task' || dropTask === 'Select Drop Task') {
+        alert('Task를 반드시 선택해 주세요.')
+        return;
+    }
+    let queryString = $("form[name=jobCreateForm]").serialize();
+    $.ajax({
+        type: 'post', url: '/api/jobs',
+        data: queryString,
+        dataType: 'json',
+        error: function (xhr, status, error) {
+            alert(error);
+        }, success: function (json) {
+            alert(json)
+        }
+    });
 }
 
 
-function fixJob() {
-    console.log("fixJob execute");
+function patchJob() {
+    console.log("patchJob execute");
     let jobId = $('.job_id').val();
     let jobName = $('.job_name').val();
     let columnName = $('.column_name').val();
@@ -72,61 +92,72 @@ function fixJob() {
         alert('값을 다 입력하세요');
         return;
     }
+    let editInfo = `{"job_id": ${jobId}, "name": ${jobName}, "column": ${columnName}`;
     $.ajax({
-        type: "PUT",
-        url: `${localhost}/job?jogID=${jobId}&column=${columnName}&name=${jobName}`,
+        method: "PATCH",
+        url: `${localhost}/api/job?job_id=${jobId}&name=${jobName}&column=${columnName}`,
+        contentType: 'application/json-patch+json; charset=utf-8',
+        // data: JSON.stringify(editInfo),
         success: function (response) {
             console.log(response);
-            alert('조회 성공.');
+            alert('전송 성공.');
         },
-        error: function (data) {
-            alert("수정 실패");
+        error: function (error) {
+            console.log('전송실패');
+            alert(error);
         }
     })
 }
 
 
 function getJob() {
+    console.log("getJob execute");
     let jobId = $('.get-job-id').val();
-    let jobIdSection = $('.christ')
-    console.log(jobIdSection);
+    let jobIdSection = $('.get-job-section');
     console.log(jobId);
+    console.log(jobIdSection);
     if (jobId === "") {
         alert('값을 입력하세요.');
         return;
     }
-    let jobID = `{"jobID": ${jobId}}`;
     $.ajax({
-        type: "POST",
-        url: `${localhost}/jobs/${jobId}`,
-        data: JSON.stringify(jobID),
-        contentType: 'application/json',
+        type: "GET",
+        url: `${localhost}/api/job?job_id=${jobId}`,
         success: function (response) {
             console.log(response);
             alert('조회 성공.');
             jobIdSection.empty()
             jobIdSection.append(`<div>${response}</div>`)
         },
-        error: function () {
+        error: function (error) {
             jobIdSection.empty()
-            alert("조회 실패");
+            alert(error)
+            console.log("조회 실패");
         }
     })
 };
 
 
-function jobDelete() {
-    let queryString = $('.del-job-id').val();
-    if (queryString === "") {
+function deleteJob() {
+    console.log("deleteJob execute");
+    let jobId = $('.del-job-id').val();
+    let jobIdSection = $('.get-job-section');
+    if (jobId === "") {
         alert('값을 입력하세요.');
         return;
     }
     $.ajax({
-        type: "DELETE",
-        url: `http://127.0.0.1:5000/job?jobId=${jobId}`,
+        method: "DELETE",
+        url: `${localhost}/job?job_id=${jobId}`,
         success: function (response) {
+            jobIdSection.empty()
             console.log(response);
-            alert('삭제되었습니다.');
+            alert(`jobId${jobId}가 삭제되었습니다.`);
+        },
+        error: function (error) {
+            jobIdSection.empty()
+            alert(error)
+            console.log(`jobId${jobId} 삭제가 실패하였습니다.`);
         }
     })
 };
@@ -134,5 +165,5 @@ function jobDelete() {
 
 function addFileName() {
     let fileBox = $('.file-box');
-    fileBox.on('change', )
+    fileBox.on('change',)
 }

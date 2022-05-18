@@ -16,17 +16,17 @@
         <li class="nav-item-1" role="presentation">
             <a href="/">
                 <button class="nav-link nav-1" id="job-create" data-bs-toggle="pill" data-bs-target="#pills-home"
-                        type="button" role="tab"">Job 생성
+                        type="button" role="tab">Job 생성
                 </button>
             </a>
         </li>
         <li class="nav-item-2" role="presentation">
-            <a href="/jobs"><button class="nav-link nav-2 active" id="job-edit" data-bs-toggle="pill" data-bs-target="#pills-profile"
+            <a href="api/edit"><button class="nav-link nav-2 active" id="job-edit" data-bs-toggle="pill" data-bs-target="#pills-profile"
                     type="button" role="tab">Job 조회 수정 삭제
             </button></a>
         </li>
         <li class="nav-item-3" role="presentation">
-            <a href="/api/task-running">
+            <a href="/api/csv">
                 <button class="nav-link nav-3" id="csv-create" data-bs-toggle="pill" data-bs-target="#pills-contact"
                         type="button" role="tab">GET CSV
                 </button>
@@ -34,6 +34,7 @@
         </li>
     </ul>
 </div>
+<div class="get-job-section"></div>
 <section id="upload-section5" class="upload-section">
     <form method="POST">
         <div class="form-row">
@@ -46,7 +47,7 @@
             <div class="col">
                 <input type="text" class="form-control column_name" placeholder="column_name">
             </div>
-            <button type="button" onclick="fixJob()" class="btn btn-primary">PUT</button>
+            <button type="button" onclick="patchJob()" class="btn btn-primary">PATCH</button>
         </div>
     </form>
 </section>
@@ -66,7 +67,7 @@
             <div class="col">
                 <input type="text" class="form-control del-job-id" placeholder="Job_id">
             </div>
-            <button type="button" onclick="jobDelete()" class="btn btn-danger">Delete</button>
+            <button type="button" onclick="deleteJob()" class="btn btn-danger">Delete</button>
         </div>
     </form>
 </section>
