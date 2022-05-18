@@ -37,7 +37,7 @@ def apply(data):
     """
         json file에 변경된 data를 적용한 후 data를 반환
     """
-    with open('job.json', 'w', encoding='utf-8') as file:
+    with open('flaskr/data/job.json', 'w', encoding='utf-8') as file:
             json.dump(data, file, indent="\t")
     return jsonify(data)
 
@@ -72,7 +72,7 @@ def bring_data():
     """
         전체 data를
     """
-    with open('job.json') as f:
+    with open('flaskr/data/job.json') as f:
         data = json.load(f)
     return data
 
