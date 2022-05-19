@@ -14,6 +14,9 @@ class JobView(MethodView, CRUDTask):
         
 
     def get(self):
+        """
+            전체 혹은 특정 job 반환
+        """
         job_id = self.get_single_id()
         
         if job_id:
@@ -22,12 +25,18 @@ class JobView(MethodView, CRUDTask):
             return jsonify(self.data), 200
 
     def post(self):
+        """
+            새로운 job 등록
+        """
         new_job = self.post_data()
         self.data.append(new_job)
         self.petch_data(self.data)
         return jsonify(self.data), 201
 
     def delete(self):
+        """
+            특정 job 삭제
+        """
         job_id = self.get_single_id()
         print(job_id)
         self.data.pop([ i for i in range(len(self.data)) if self.data[i]['job_id'] == job_id  ][0])
@@ -35,6 +44,9 @@ class JobView(MethodView, CRUDTask):
 
 
     def patch(self):
+        """
+            특정 job 수정
+        """
         query = request.args.to_dict()
         job_id = query.get('job_id')
         job = query.get('name') 

@@ -33,7 +33,12 @@ class JsonPath():
 
 
 class CRUDTask(JsonPath):
-    
+    """
+        작성자 : 김채욱
+        api CRUD에 필요한 함수 모음
+    """
+
+
     FILE_PATH = 'flaskr/data/job.json'
 
     def __init__(self):
@@ -96,7 +101,7 @@ class CRUDTask(JsonPath):
             'property': {
                 "read": {"task_name": "read", "filename" : file, "sep": ","}, \
                 "drop": {"task_name": "drop", "column_name": column}, \
-                "write": {"task_name": "write", "filename" : "path/to/b.csv", "sep": ","}}
+                "write": {"task_name": "write", "filename" : file, "sep": ","}}
         }
 
         return new
