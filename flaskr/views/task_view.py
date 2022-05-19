@@ -2,10 +2,10 @@ import pandas as pd
 
 from flask import request, Response
 from flask.views import View
-from flaskr.utils import TaskRunningProcessor, get_all_jobs, get_single_job
+from flaskr.utils import TaskRunningProcessor, CRUDTask
 
 
-class TaskRunView(View):
+class TaskRunView(View, CRUDTask):
     """
         작성자 : 강정희
         리뷰어 : 이형준
@@ -45,10 +45,10 @@ class TaskRunView(View):
                 return Response("{'error message': 'CSV 파일을 업로드하세요.'}", status=400, mimetype='application/json')
 
             # job_id와 맞는 task list check
-            try:
-                data = get_all_jobs()
-                job = get_single_job(data, job_id)
-            except Exception as e:
+            data = self.get_all_jobs()
+            job = self.get_single_job(data, job_id)
+
+            if job is None:
                 return Response("{'error message': '지정한 작업이 없습니다.'}", status=400, mimetype='application/json')
 
             # task_list 확인 후 해당 단계 실행

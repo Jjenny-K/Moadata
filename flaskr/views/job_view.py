@@ -1,44 +1,62 @@
 from flask.views import MethodView
 from flask import jsonify, request
-from flaskr.utils import petch_data, form_data, post_data, get_all_jobs, get_single_id
+from flaskr.utils.commons import CRUDTask
 
 
-class JobView(MethodView):
-    data = get_all_jobs()
+class JobView(MethodView, CRUDTask):
+    """
+        작성자 : 김채욱
+        장고 View를 참고하여서 handler methods별로 나누어 실행
+    """
+    
+    task = CRUDTask()
+    data = task.get_all_jobs()
+        
 
     def get(self):
-        job_id = get_single_id()
+        """
+            전체 혹은 특정 job 반환
+        """
+        job_id = self.get_single_id()
         
         if job_id:
-            return jsonify([ ele for ele in self.data if ele['jobid'] == job_id ][0]), 200
+            return jsonify([ ele for ele in self.data if ele['job_id'] == job_id ][0]), 200
         else:
             return jsonify(self.data), 200
 
     def post(self):
-        job, column, file, task = form_data()
-        new_job = post_data(job, column, file, task)
+        """
+            새로운 job 등록
+        """
+        new_job = self.post_data()
         self.data.append(new_job)
-        petch_data(self.data)
+        self.petch_data(self.data)
         return jsonify(self.data), 201
 
     def delete(self):
-        job_id = get_single_id()
-
-        self.data.pop([ i for i in range(len(self.data)) if self.data[i]['jobid'] == job_id  ][0])
-        return petch_data(self.data), 200
+        """
+            특정 job 삭제
+        """
+        job_id = self.get_single_id()
+        print(job_id)
+        self.data.pop([ i for i in range(len(self.data)) if self.data[i]['job_id'] == job_id  ][0])
+        return self.petch_data(self.data), 204
 
 
     def patch(self):
-        job_id = get_single_id()
-
+        """
+            특정 job 수정
+        """
         query = request.args.to_dict()
+        job_id = query.get('job_id')
         job = query.get('name') 
         column = query.get('column')
 
         for ele in self.data:
-            if ele['jobid'] == job_id:
+            if ele["job_id"] == job_id:
                 ele['job_name'] = job
                 if ele['property']['drop']:
                     ele['property']['drop']["column_name"] = column
+                    
 
-        return petch_data(self.data), 200
+        return self.petch_data(self.data), 200
