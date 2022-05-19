@@ -10,10 +10,12 @@ class HomeView(View):
 
     def dispatch_request(self):
         return render_template(self.template_name)
+
         # return jsonify({
         #     'apis': [
         #         'api/jobs',
-        #         'api/jobs/<int:pk>',
+        #         'api/jobs?job_id=<str:pk>',
         #         'api/task-running'
         #     ]
         # })
+

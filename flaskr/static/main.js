@@ -41,6 +41,7 @@ function paintJobList(res) {
         result += `<td>${property}</td>`
         result += `<td class="table-active">${task_list}</td>`
         result += '</tr>'
+        if (i===50) break;
     }
     $('.table-body').append(result);
 }
