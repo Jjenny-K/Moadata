@@ -128,10 +128,8 @@ class CRUDTask(JsonPath):
             작성자 : 김채욱
             job.json file에 전체 data 반환
         """
-        
-        with open(self.FILE_PATH) as f:
-            data = json.load(f)
-        return data
+
+        return 'hello'
 
 
     def get_single_job(self, data, job_id):
