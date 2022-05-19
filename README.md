@@ -58,7 +58,11 @@ flask run
 - DFD Diagram 작성
 
 ### 서재환
-
+- template_view 작성
+    - api 기능 별로 화면을 나누어 template_view를 활용하여 프론트 구성
+- client request 부문 작성
+   - jquery 사용하여 request 구현
+   - request 성공 및 error에 대한 처리
 ### 김채욱
 
 ### 이형준
