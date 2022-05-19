@@ -24,21 +24,20 @@ data = []
 if not os.path.isfile(file_path):
     make_json(file_path, data)
 
-
 """
     API 명세
 
     GET /api/jobs: job.json 파일 내 job list 조회
     POST /api/jobs: 새로운 job 생성
-    GET /api/job?job_id=...: uuid 값과 같은 job 정보 상세 조회
-    PATCH /api/job?job_id=...: uuid 값과 같은 job 정보 수정
-    DELETE /api/job?job_id=...: uuid 값과 같은 job 정보 삭제
+    GET /api/job?job_id=<str:pk>: 입력된 job uuid 값과 같은 job 정보 상세 조회
+    PATCH /api/job?job_id=<str:pk>: 입력된 job uuid 값과 같은 job 정보 수정
+    DELETE /api/job?job_id=<str:pk>: 입력된 job uuid 값과 같은 job 정보 삭제
     POST /api/task-running: 입력한 csv 파일과 job_id 정보로 지정된 작업(job) 실행
 """
 
 home_view = HomeView.as_view('home_view', template_name='index.html')
 task_view = TaskRunView.as_view('task_view')
-job_view = JobView.as_view('detailjob')
+job_view = JobView.as_view('job_view')
 
 app.add_url_rule('/', view_func=home_view)
 app.add_url_rule('/api/jobs', methods=['GET', 'POST'], view_func=job_view)
