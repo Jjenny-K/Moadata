@@ -16,12 +16,16 @@
 이 서비스는 client가 데이터를 다루는데 필요한 작업(job)을 사전에 정의해두고, 원하는 데이터와 작업을 입력하여 해당 작업을 실행하는 서비스라고 해석하였습니다.
 
 ## 구현 요구사항
-- [x] RESTAPI를 통한 통신
-- [x] CSV을 포함한 request -> CSV 파일을 포함한 response
-- [x] read - drop - write라는 DAG개념 정립
+- REST API를 통한 통신
+    - [x] 작업(job) CRUD
+        - 작업(job) 정보 등록, 수정, 삭제
+    - [x] 작업(job) 실행 API
+        - read - drop - write라는 DAG개념 정립
+        - CSV을 포함한 request -> CSV 파일을 포함한 response
+
 - [x] RESTAPI 각 기능에 대한 Unit test 실행
+- [x] DFD diagram
 - [x] API 명세서
-- [x] dfd diagram
 
 ## 구현
 

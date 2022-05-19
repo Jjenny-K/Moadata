@@ -20,7 +20,6 @@ app.config.from_mapping(
 
 """
     API 명세
-
     GET /api/jobs: job.json 파일 내 job list 조회
     POST /api/jobs: 새로운 job 생성
     GET /api/job?job_id=<str:pk>: 입력된 job uuid 값과 같은 job 정보 상세 조회
