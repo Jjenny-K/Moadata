@@ -21,7 +21,7 @@
         - 작업(job) 정보 등록, 수정, 삭제
     - [x] 작업(job) 실행 API
         - read - drop - write라는 DAG개념 정립
-        - CSV을 포함한 request -> CSV 파일을 포함한 response
+        - CSV을 포함한 request ->  CSV 파일을 포함한 response
 
 - [x] RESTAPI 각 기능에 대한 Unit test 실행
 - [x] DFD diagram
@@ -68,7 +68,11 @@ flask run
    - jquery 사용하여 request 구현
    - request 성공 및 error에 대한 처리
 ### 김채욱
-
+- job CRUD API
+    - client의 job 정보를 저장, 수정, 삭제
+    - job 실행을 위한 setting
+- 배포
+    - aws ec2에 nginx, gunicorn, docker
 ### 이형준
 - 문서화 작업
   - readme
