@@ -13,7 +13,7 @@ class HomeView(View):
         return jsonify({
             'apis': [
                 'api/jobs',
-                'api/jobs/<int:pk>',
+                'api/jobs?job_id=<str:pk>',
                 'api/task-running'
             ]
         })
