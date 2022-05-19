@@ -5,6 +5,15 @@ from config import basedir
 from flask import jsonify, request, json, Response
 
 
+def make_json(file_path, data):
+    """
+        작성자 : 김채욱
+        job.json 파일 생성
+    """
+    with open(file_path, 'w') as outfile:
+        json.dump(data, outfile)
+
+
 def form_data():
     """
         작성자 : 김채욱
