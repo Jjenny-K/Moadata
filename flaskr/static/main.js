@@ -17,6 +17,12 @@ $(document).ready(function () {
             , method: 'GET'
             , success: paintJobList2
         })
+    } else if (url === `${localhost}/client/csv`) {
+        $.ajax({
+            url: `${localhost}/api/jobs`
+            , method: 'GET'
+            , success: paintJobList3
+        })
     }
 });
 
@@ -27,35 +33,31 @@ function objToDict(item) {
 
 
 function paintJobList(res) {
-    console.log(res);
     item = objToDict(res);
     $('.table-body').empty();
     let result = "";
     for (let i = 0; i < item.length; i++) {
         let property = JSON.stringify(objToDict(item[i]['property']))
         let task_list = JSON.stringify(objToDict(item[i]['task_list']))
-        console.log(property)
         result += '<tr>'
         result += `<td>${item[i]['job_id']}</td>`
         result += `<td class="table-active">${item[i]['job_name']}</td>`
         result += `<td>${property}</td>`
         result += `<td class="table-active">${task_list}</td>`
         result += '</tr>'
-        if (i===50) break;
+        if (i === 50) break;
     }
     $('.table-body').append(result);
 }
 
 
 function paintJobList2(res) {
-    console.log(res);
     item = objToDict(res);
     $('.table-body2').empty()
     let result = "";
     for (let i = 0; i < item.length; i++) {
         let property = JSON.stringify(objToDict(item[i]['property']))
         let task_list = JSON.stringify(objToDict(item[i]['task_list']))
-        console.log(property)
         result += '<tr>'
         result += `<td>${item[i]['job_id']}</td>`
         result += `<td class="table-active">${item[i]['job_name']}</td>`
@@ -64,6 +66,24 @@ function paintJobList2(res) {
         result += '</tr>'
     }
     $('.table-body2').append(result);
+}
+
+
+function paintJobList3(res) {
+    item = objToDict(res);
+    $(`.table-body-3`).empty();
+    let result = "";
+    for (let i = 0; i < item.length; i++) {
+        let property = JSON.stringify(objToDict(item[i]['property']))
+        let task_list = JSON.stringify(objToDict(item[i]['task_list']))
+        result += '<tr>'
+        result += `<td>${item[i]['job_id']}</td>`
+        result += `<td class="table-active">${item[i]['job_name']}</td>`
+        result += `<td>${property}</td>`
+        result += `<td class="table-active">${task_list}</td>`
+        result += '</tr>'
+    }
+    $(`.table-body-3`).append(result);
 }
 
 function paintJobGet(res) {
@@ -109,7 +129,7 @@ function postJob() {
         error: function (xhr, status, error) {
             alert(error);
         }, success: function (json) {
-            alert('전송 성공');
+            alert('job 생성');
             window.location.reload();
         }
     });
@@ -137,7 +157,7 @@ function patchJob() {
             $.ajax({
                 url: `${localhost}/api/jobs`
                 , method: 'GET'
-                , success: paintJobList
+                , success: paintJobList2
             })
             alert('전송 성공.');
             window.location.reload();
@@ -163,11 +183,11 @@ function getJob() {
         url: `${localhost}/api/job?job_id=${jobId}`,
         success: function (response) {
             paintJobGet(response);
-            alert('조회 성공.');
+            alert(`jobId: ${jobId} 조회 성공`);
         },
         error: function (error) {
             alert(error)
-            console.log("조회 실패");
+            console.log(`jobId${jobId}조회 실패`);
         }
     })
 };
@@ -188,12 +208,12 @@ function deleteJob() {
         dataType: "text",
         success: function (response) {
             console.log(response);
-            alert(`jobId${jobId}가 삭제되었습니다.`);
+            alert(`jobId: ${jobId}가 삭제되었습니다.`);
             window.location.reload();
         },
         error: function (error) {
             alert(error)
-            console.log(`jobId${jobId} 삭제가 실패하였습니다.`);
+            console.log(`jobId: ${jobId} 삭제가 실패하였습니다.`);
         }
     })
 };
