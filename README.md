@@ -62,3 +62,9 @@ flask run
 ### 김채욱
 
 ### 이형준
+- 문서화 작업
+  - readme
+  - api document
+- 테스트 코드 작성
+  - pytest
+  - unittest
