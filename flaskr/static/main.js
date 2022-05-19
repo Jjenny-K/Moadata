@@ -86,7 +86,7 @@ function paintJobList3(res) {
     $(`.table-body-3`).append(result);
 }
 
-function paintJobGet(res) {
+function paintGetJob(res) {
     item = objToDict(res);
     $('.table-body2').empty();
     console.log(item);
@@ -182,7 +182,7 @@ function getJob() {
         method: "GET",
         url: `${localhost}/api/job?job_id=${jobId}`,
         success: function (response) {
-            paintJobGet(response);
+            paintGetJob(response);
             alert(`jobId: ${jobId} 조회 성공`);
         },
         error: function (error) {
