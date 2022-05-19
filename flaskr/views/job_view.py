@@ -8,6 +8,7 @@ class JobView(MethodView, CRUDTask):
         작성자 : 김채욱
         장고 View를 참고하여서 handler methods별로 나누어 실행
     """
+
     def __init__(self):
         self.task = CRUDTask()
         self.data = self.task.get_all_jobs()
@@ -42,14 +43,13 @@ class JobView(MethodView, CRUDTask):
         self.data.pop([i for i in range(len(self.data)) if self.data[i]['job_id'] == job_id][0])
         return self.petch_data(self.data), 204
 
-
     def patch(self):
         """
             특정 job 수정
         """
         query = request.args.to_dict()
         job_id = query.get('job_id')
-        job = query.get('name') 
+        job = query.get('name')
         column = query.get('column')
 
         for ele in self.data:
@@ -57,6 +57,5 @@ class JobView(MethodView, CRUDTask):
                 ele['job_name'] = job
                 if ele['property']['drop']:
                     ele['property']['drop']["column_name"] = column
-                    
 
         return self.petch_data(self.data), 200

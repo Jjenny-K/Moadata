@@ -127,6 +127,7 @@ class CRUDTask(JsonPath):
             data = json.load(f)
         return data
 
+
     def get_single_job(self, data, job_id):
         """
             작성자 : 강정희
