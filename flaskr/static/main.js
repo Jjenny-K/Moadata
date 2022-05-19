@@ -86,6 +86,7 @@ function paintJobList3(res) {
     $(`.table-body-3`).append(result);
 }
 
+
 function paintGetJob(res) {
     item = objToDict(res);
     $('.table-body2').empty();
@@ -121,14 +122,16 @@ function postJob() {
         return;
     }
     let queryString = $("form[name=jobCreateForm]").serialize();
+    console.log(queryString);
     $.ajax({
         method: 'POST', url: '/api/jobs',
         data: queryString,
         dataType: 'json',
-        contentType: 'application/json',
+        contentType: "application/x-www-form-urlencoded",
         error: function (xhr, status, error) {
             alert(error);
-        }, success: function (json) {
+        }, success: function (res) {
+            console.log(res);
             alert('job 생성');
             window.location.reload();
         }

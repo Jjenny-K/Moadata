@@ -40,7 +40,6 @@ class TaskRunView(View, CRUDTask):
         if request.method == 'POST':
             request_csv = request.files['filename']
             job_id = request.form.get('job_id')
-            print(request_csv, job_id)
 
             # request_csv 형식 예외처리
             if request_csv.content_type != 'text/csv':
@@ -49,7 +48,6 @@ class TaskRunView(View, CRUDTask):
             # job_id와 맞는 task list check
             data = self.get_all_jobs()
             job = self.get_single_job(data, job_id)
-            print(job)
 
             if job is None:
                 return Response("{'error message': '지정한 작업이 없습니다.'}", status=400, mimetype='application/json')

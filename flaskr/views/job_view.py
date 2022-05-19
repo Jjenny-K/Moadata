@@ -8,9 +8,9 @@ class JobView(MethodView, CRUDTask):
         작성자 : 김채욱
         장고 View를 참고하여서 handler methods별로 나누어 실행
     """
-
-    task = CRUDTask()
-    data = task.get_all_jobs()
+    def __init__(self):
+        self.task = CRUDTask()
+        self.data = self.task.get_all_jobs()
 
     def get(self):
         """

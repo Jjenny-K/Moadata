@@ -73,12 +73,11 @@ class CRUDTask(JsonPath):
             작성자 : 김채욱
             클라이언트가 입력한 새로운 job 정보를 호출
         """
-        query = request.args.to_dict()
-        job = query.get('job')
-        column = query.get('column')
-        file = query.get('file')
-        read = query.get('read')
-        drop = query.get('drop')
+        job = request.form.get('job')
+        column = request.form.get('column')
+        file = request.form.get('file')
+        read = request.form.get('read')
+        drop = request.form.get('job')
         task = self._task_list(read, drop)
         return job, column, file, task
 
@@ -87,6 +86,7 @@ class CRUDTask(JsonPath):
             작성자 : 김채욱
             새로운 job 생성
         """
+        print(f'form_data ${self._form_data()}')
         job, column, file, task = self._form_data()
 
         new = {
@@ -160,7 +160,7 @@ class TaskRunningProcessor:
         csv.save(filepath)
 
         # csv to dataframe
-        self.dataframe = pd.read_csv(filepath, delimiter=task['sep'])
+        self.dataframe = pd.read_csv(filepath, delimiter=task['sep'], encoding='cp949')
 
         return self.dataframe
 
