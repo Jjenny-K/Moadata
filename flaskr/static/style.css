@@ -10,8 +10,46 @@
     align-items: center;
     margin-top: 5%;
 }
-.job-list {
-    align-items: center;
+.job-list, .get-job-section, .csv-section {
+    text-align: center;
     background-color: #F7F7F9;
     padding: 5rem;
+}
+
+
+.head {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 5%;
+}
+
+
+.nav-pills {
+    display: flex;
+    justify-content: space-around;
+}
+
+
+.nav-link {
+    border: solid rgba(3, 5, 0, 0.21) 0.1px;
+}
+
+#content-1 {
+    display: block;
+}
+
+#content-2 {
+    display: block;
+}
+
+#content-3 {
+    display: block;
+}
+
+a:hover {
+    text-decoration-line: none;
+}
+
+.table td, .table th {
+    border-top: 4px solid #dee2e6;
 }

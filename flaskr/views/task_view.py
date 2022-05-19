@@ -35,6 +35,7 @@ class TaskRunView(View, CRUDTask):
 
         return self.result
 
+
     def dispatch_request(self):
         if request.method == 'POST':
             request_csv = request.files['filename']
@@ -61,3 +62,5 @@ class TaskRunView(View, CRUDTask):
                 return Response(result.to_csv(index=False), status=201, mimetype='application/json')
             else:
                 return result
+
+

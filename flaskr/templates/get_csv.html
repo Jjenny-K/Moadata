@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Moadata</title>
+    <link rel="stylesheet" href="../static/bootstrap.min.css">
+    <link rel="stylesheet" href="../static/style.css">
+</head>
+<body>
+<div class="head">
+    <h1>Moadata</h1>
+    <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+        <li class="nav-item-1" role="presentation">
+            <a href="/">
+                <button class="nav-link nav-1" id="job-create" data-bs-toggle="pill" data-bs-target="#pills-home"
+                        type="button" role="tab">Job 생성
+                </button>
+            </a>
+        </li>
+        <li class="nav-item-2" role="presentation">
+            <a href="/client/edit"><button class="nav-link nav-2" id="job-edit" data-bs-toggle="pill" data-bs-target="#pills-profile"
+                    type="button" role="tab">Job 조회 수정 삭제
+            </button></a>
+        </li>
+        <li class="nav-item-3" role="presentation">
+            <a href="/client/csv">
+                <button class="nav-link nav-3 active" id="csv-create" data-bs-toggle="pill" data-bs-target="#pills-contact"
+                        type="button" role="tab">GET CSV
+                </button>
+            </a>
+        </li>
+    </ul>
+</div>
+<div class="csv-section">
+    <section id="upload-section2" class="upload-section">
+        <form action="/api/task-running" enctype="multipart/form-data" method="POST">
+            <div class="form-row">
+                <div class="file-box col">
+                    <label class="custom-file-label" for="csvFile">Choose CSV</label>
+                    <input type="file" name="filename" class="custom-file-input" id="csvFile" >
+                </div>
+                <div class="col">
+                    <input type="text" name="job_id" class="form-control csv-job-id" placeholder="Job_id">
+                </div>
+                <button type="button"  class="btn btn-primary" onclick="csvSuccessOrFail()">Submit</button>
+            </div>
+        </form>
+    </section>
+</div>
+<div>
+    <table class="table">
+        <thead>
+        <th>Id</th>
+        <th class="table-active">Name</th>
+        <th width=1300>Property</th>
+        <th class="table-active">Task List</th>
+        </thead>
+        <tbody class="table-body-3">
+        </tbody>
+    </table>
+</div>
+</body>
+<script defer src="//code.jquery.com/jquery-3.3.1.min.js"></script>
+<script defer src="../static/bootstrap.bundle.min.js"></script>
+<script defer src="../static/main.js"></script>
+</html>
