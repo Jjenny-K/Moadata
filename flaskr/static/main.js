@@ -245,7 +245,7 @@ function csvSuccessOrFail() {
             console.log("message: ", message);
             alert(`서버${meesage.uploadFilePath}에 csv 파일이 수정되었습니다.`);
         },
-        err: function (err) {
+        error: function (err) {
             console.log("err:", err);
             alert('실패하였습니다');
         },
