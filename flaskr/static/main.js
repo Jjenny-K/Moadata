@@ -1,57 +1,88 @@
+// 배포시 localhost의 주소를 바꾸어 주어야 함
 const localhost = "http://127.0.0.1:5000";
 
 
-function splitUrlen(url) {
-    let arr = url.split('jobs/');
-    return arr.length;
+$(document).ready(function () {
+    let url = document.location.href;
+    console.log(url);
+    if (url === `${localhost}/`) {
+        $.ajax({
+            url: `${localhost}/api/jobs`
+            , method: 'GET'
+            , success: paintJobList
+        })
+    } else if (url === `${localhost}/client/edit`) {
+        $.ajax({
+            url: `${localhost}/api/jobs`
+            , method: 'GET'
+            , success: paintJobList2
+        })
+    }
+});
+
+
+function objToDict(item) {
+    return JSON.parse(JSON.stringify(item));
 }
 
 
-function guideUrl() {
-    let url = document.location.href;
-    console.log(url);
-    let num = "";
-    if (splitUrlen(url) === 2) {
-        num = url.split(url)[1]
+function paintJobList(res) {
+    console.log(res);
+    item = objToDict(res);
+    $('.table-body').empty();
+    let result = "";
+    for (let i = 0; i < item.length; i++) {
+        let property = JSON.stringify(objToDict(item[i]['property']))
+        let task_list = JSON.stringify(objToDict(item[i]['task_list']))
+        console.log(property)
+        result += '<tr>'
+        result += `<td>${item[i]['job_id']}</td>`
+        result += `<td class="table-active">${item[i]['job_name']}</td>`
+        result += `<td>${property}</td>`
+        result += `<td class="table-active">${task_list}</td>`
+        result += '</tr>'
     }
-    let url1 = `${localhost}/`
-    let url2 = `${localhost}/jobs`
-    let url3 = `${localhost}/jobs/${num}`
-    let url4 = `${localhost}/api/task-running`;
+    $('.table-body').append(result);
+}
 
-    console.log(`url1: ${url1}`);
-    console.log(`url2: ${url2}`);
-    console.log(`url3: ${url3}`);
-    if (url === url1) {
-        let jobList = $('.job-list');
-        jobList.empty();
-        $.ajax({
-            type: "POST",
-            url: `${localhost}/`,
-            success: function (response) {
-                console.log(response);
-                jobs = response;
-                for (let i = 0; i < jobs.length; i++) {
-                    if (jobs[i] !== null) {
-                        job = JSON.stringify(jobs[i])
-                        let tempHtml = `<div>${job}</div><br><br>`
-                        jobList.append(tempHtml)
-                    }
-                }
-            }
-        })
-    } else if (url === url2) {
-        let jobList = $('.job-list');
-        jobList.empty();
 
-    } else if (url === url3) {
-        let jobList = $('.job-list');
-        jobList.empty();
-
-    } else if (url === url4) {
-        return;
+function paintJobList2(res) {
+    console.log(res);
+    item = objToDict(res);
+    $('.table-body2').empty()
+    let result = "";
+    for (let i = 0; i < item.length; i++) {
+        let property = JSON.stringify(objToDict(item[i]['property']))
+        let task_list = JSON.stringify(objToDict(item[i]['task_list']))
+        console.log(property)
+        result += '<tr>'
+        result += `<td>${item[i]['job_id']}</td>`
+        result += `<td class="table-active">${item[i]['job_name']}</td>`
+        result += `<td>${property}</td>`
+        result += `<td class="table-active">${task_list}</td>`
+        result += '</tr>'
     }
-};
+    $('.table-body2').append(result);
+}
+
+function paintJobGet(res) {
+    item = objToDict(res);
+    $('.table-body2').empty();
+    console.log(item);
+    let result = "";
+    let jobId = objToDict(item)['job_id'];
+    let jobName = objToDict(item)['job_name'];
+    let property = JSON.stringify(objToDict(item['property']))
+    let task_list = JSON.stringify(objToDict(item['task_list']))
+    result += '<tr>'
+    result += `<td>${jobId}</td>`
+    result += `<td class="table-active">${jobName}</td>`
+    result += `<td>${property}</td>`
+    result += `<td class="table-active">${task_list}</td>`
+    result += '</tr>'
+
+    $('.table-body2').append(result);
+}
 
 
 function postJob() {
@@ -70,13 +101,15 @@ function postJob() {
     }
     let queryString = $("form[name=jobCreateForm]").serialize();
     $.ajax({
-        type: 'post', url: '/api/jobs',
+        method: 'POST', url: '/api/jobs',
         data: queryString,
         dataType: 'json',
+        contentType: 'application/json',
         error: function (xhr, status, error) {
             alert(error);
         }, success: function (json) {
-            alert(json)
+            alert('전송 성공');
+            window.location.reload();
         }
     });
 }
@@ -85,8 +118,8 @@ function postJob() {
 function patchJob() {
     console.log("patchJob execute");
     let jobId = $('.job_id').val();
-    let jobName = $('.job_name').val();
-    let columnName = $('.column_name').val();
+    let jobName = $('.name').val();
+    let columnName = $('.name').val();
     console.log(jobId, jobName, columnName);
     if (jobId === "" || jobName === "" || columnName === "") {
         alert('값을 다 입력하세요');
@@ -100,7 +133,13 @@ function patchJob() {
         // data: JSON.stringify(editInfo),
         success: function (response) {
             console.log(response);
+            $.ajax({
+                url: `${localhost}/api/jobs`
+                , method: 'GET'
+                , success: paintJobList
+            })
             alert('전송 성공.');
+            window.location.reload();
         },
         error: function (error) {
             console.log('전송실패');
@@ -113,24 +152,19 @@ function patchJob() {
 function getJob() {
     console.log("getJob execute");
     let jobId = $('.get-job-id').val();
-    let jobIdSection = $('.get-job-section');
     console.log(jobId);
-    console.log(jobIdSection);
     if (jobId === "") {
         alert('값을 입력하세요.');
         return;
     }
     $.ajax({
-        type: "GET",
+        method: "GET",
         url: `${localhost}/api/job?job_id=${jobId}`,
         success: function (response) {
-            console.log(response);
+            paintJobGet(response);
             alert('조회 성공.');
-            jobIdSection.empty()
-            jobIdSection.append(`<div>${response}</div>`)
         },
         error: function (error) {
-            jobIdSection.empty()
             alert(error)
             console.log("조회 실패");
         }
@@ -140,22 +174,23 @@ function getJob() {
 
 function deleteJob() {
     console.log("deleteJob execute");
+    let header = "X-CSRF-TOKEN";
     let jobId = $('.del-job-id').val();
-    let jobIdSection = $('.get-job-section');
     if (jobId === "") {
         alert('값을 입력하세요.');
         return;
     }
     $.ajax({
         method: "DELETE",
-        url: `${localhost}/job?job_id=${jobId}`,
+        url: `${localhost}/api/job?job_id=${jobId}`,
+        contentType: "application/json; charset=utf-8",
+        dataType: "text",
         success: function (response) {
-            jobIdSection.empty()
             console.log(response);
             alert(`jobId${jobId}가 삭제되었습니다.`);
+            window.location.reload();
         },
         error: function (error) {
-            jobIdSection.empty()
             alert(error)
             console.log(`jobId${jobId} 삭제가 실패하였습니다.`);
         }
@@ -163,7 +198,32 @@ function deleteJob() {
 };
 
 
-function addFileName() {
-    let fileBox = $('.file-box');
-    fileBox.on('change',)
+function csvSuccessOrFail() {
+    let filename = $('.custom-file-input')[0];
+    console.log(`file: ${filename}`);
+    let jobId = $('.csv-job-id').val();
+    if (filename.files.length === 0 || jobId === "") {
+        alert('파일 하나와 id를 모두 입력하세요.');
+        return;
+    }
+    const formData = new FormData();
+    formData.append("filename", filename.files[0]);
+    formData.append('job_id', jobId);
+    $.ajax({
+        processData: false,
+        contentType: false,
+        cache: false,
+        method: "POST",
+        url: `${localhost}/api/task-running`,
+        data: formData,
+        success: function (rtn) {
+            const message = rtn.data.values[0];
+            console.log("message: ", message);
+            alert(`서버${meesage.uploadFilePath}에 csv 파일이 수정되었습니다.`);
+        },
+        err: function (err) {
+            console.log("err:", err);
+            alert('실패하였습니다');
+        },
+    })
 }

@@ -21,12 +21,15 @@
             </a>
         </li>
         <li class="nav-item-2" role="presentation">
-            <a href="api/edit"><button class="nav-link nav-2 active" id="job-edit" data-bs-toggle="pill" data-bs-target="#pills-profile"
-                    type="button" role="tab">Job 조회 수정 삭제
-            </button></a>
+            <a href="/client/edit">
+                <button class="nav-link nav-2 active" id="job-edit" data-bs-toggle="pill"
+                        data-bs-target="#pills-profile"
+                        type="button" role="tab">Job 조회 수정 삭제
+                </button>
+            </a>
         </li>
         <li class="nav-item-3" role="presentation">
-            <a href="/api/csv">
+            <a href="/client/csv">
                 <button class="nav-link nav-3" id="csv-create" data-bs-toggle="pill" data-bs-target="#pills-contact"
                         type="button" role="tab">GET CSV
                 </button>
@@ -34,43 +37,56 @@
         </li>
     </ul>
 </div>
-<div class="get-job-section"></div>
-<section id="upload-section5" class="upload-section">
-    <form method="POST">
-        <div class="form-row">
-            <div class="col">
-                <input type="text" class="form-control job_id" placeholder="job_id">
+<div class="get-job-section">
+    <section id="upload-section5" class="upload-section">
+        <form method="POST">
+            <div class="form-row">
+                <div class="col">
+                    <input type="text" class="form-control job_id" placeholder="job_id">
+                </div>
+                <div class="col">
+                    <input type="text" class="form-control name" placeholder="job_name">
+                </div>
+                <div class="col">
+                    <input type="text" class="form-control name" placeholder="column_name">
+                </div>
+                <button type="button" onclick="patchJob()" class="btn btn-primary">PATCH</button>
             </div>
-            <div class="col">
-                <input type="text" class="form-control job_name" placeholder="job_name">
+        </form>
+    </section>
+    <section id="upload-section4" class="upload-section">
+        <form method="GET">
+            <div class="form-row">
+                <div class="col">
+                    <input type="text" class="form-control get-job-id" placeholder="Job_id">
+                </div>
+                <button type="button" onclick="getJob()" class="btn btn-primary">GET</button>
             </div>
-            <div class="col">
-                <input type="text" class="form-control column_name" placeholder="column_name">
+        </form>
+    </section>
+    <section id="upload-section3" class="upload-section">
+        <form method="POST" action="/jobs">
+            <div class="form-row">
+                <div class="col">
+                    <input type="text" class="form-control del-job-id" placeholder="Job_id">
+                </div>
+                <button type="button" onclick="deleteJob()" class="btn btn-danger">Delete</button>
             </div>
-            <button type="button" onclick="patchJob()" class="btn btn-primary">PATCH</button>
-        </div>
-    </form>
-</section>
-<section id="upload-section4" class="upload-section">
-    <form method="GET">
-        <div class="form-row">
-            <div class="col">
-                <input type="text" class="form-control get-job-id" placeholder="Job_id">
-            </div>
-            <button type="button" onclick="getJob()" class="btn btn-primary">GET</button>
-        </div>
-    </form>
-</section>
-<section id="upload-section3" class="upload-section">
-    <form method="POST" action="/jobs">
-        <div class="form-row">
-            <div class="col">
-                <input type="text" class="form-control del-job-id" placeholder="Job_id">
-            </div>
-            <button type="button" onclick="deleteJob()" class="btn btn-danger">Delete</button>
-        </div>
-    </form>
-</section>
+        </form>
+    </section>
+</div>
+<div>
+    <table class="table">
+        <thead>
+        <th>Id</th>
+        <th class="table-active">Name</th>
+        <th width=1300>Property</th>
+        <th class="table-active">Task List</th>
+        </thead>
+        <tbody class="table-body2">
+        </tbody>
+    </table>
+</div>
 </body>
 <script defer src="//code.jquery.com/jquery-3.3.1.min.js"></script>
 <script defer src="../static/bootstrap.bundle.min.js"></script>

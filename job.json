@@ -1,7 +1,7 @@
 [
 	{
+		"job_id": 1,
 		"job_name": "Job1",
-		"jobid": 1,
 		"property": {
 			"drop": {
 				"column_name": "date",
@@ -29,8 +29,8 @@
 		}
 	},
 	{
+		"job_id": 2,
 		"job_name": "Job2",
-		"jobid": 2,
 		"property": {
 			"drop": {
 				"column_name": "date",
@@ -58,8 +58,8 @@
 		}
 	},
 	{
+		"job_id": 3,
 		"job_name": "Job3",
-		"jobid": 3,
 		"property": {
 			"drop": {
 				"column_name": "date",
@@ -84,6 +84,29 @@
 				"drop"
 			],
 			"write": []
+		}
+	},
+	{
+		"job_id": "f5c10253-eba4-472a-a38b-8bcddf949ed9",
+		"job_name": "banana",
+		"property": {
+			"drop": {
+				"column_name": "banana",
+				"task_name": "drop"
+			},
+			"read": {
+				"filename": null,
+				"sep": ",",
+				"task_name": "read"
+			},
+			"write": {
+				"filename": "path/to/b.csv",
+				"sep": ",",
+				"task_name": "write"
+			}
+		},
+		"task_list": {
+			"read": []
 		}
 	}
 ]

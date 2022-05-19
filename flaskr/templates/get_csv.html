@@ -21,12 +21,12 @@
             </a>
         </li>
         <li class="nav-item-2" role="presentation">
-            <a href="/api/edit"><button class="nav-link nav-2" id="job-edit" data-bs-toggle="pill" data-bs-target="#pills-profile"
+            <a href="/client/edit"><button class="nav-link nav-2" id="job-edit" data-bs-toggle="pill" data-bs-target="#pills-profile"
                     type="button" role="tab">Job 조회 수정 삭제
             </button></a>
         </li>
         <li class="nav-item-3" role="presentation">
-            <a href="/api/csv">
+            <a href="/client/csv">
                 <button class="nav-link nav-3 active" id="csv-create" data-bs-toggle="pill" data-bs-target="#pills-contact"
                         type="button" role="tab">GET CSV
                 </button>
@@ -34,7 +34,7 @@
         </li>
     </ul>
 </div>
-<div id="content-3">
+<div class="csv-section">
     <section id="upload-section2" class="upload-section">
         <form action="/api/task-running" enctype="multipart/form-data" method="POST">
             <div class="form-row">
@@ -43,9 +43,9 @@
                     <input type="file" name="filename" class="custom-file-input" id="csvFile" >
                 </div>
                 <div class="col">
-                    <input type="text" name="job_id" class="form-control" placeholder="Job_id">
+                    <input type="text" name="job_id" class="form-control csv-job-id" placeholder="Job_id">
                 </div>
-                <button type="submit"  class="btn btn-primary">Submit</button>
+                <button type="button"  class="btn btn-primary" onclick="csvSuccessOrFail()">Submit</button>
             </div>
         </form>
     </section>

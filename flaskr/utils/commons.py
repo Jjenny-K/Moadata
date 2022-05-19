@@ -5,25 +5,15 @@ from config import basedir
 from flask import jsonify, request, json, Response
 
 
-def form_data():
-    """
-        작성자 : 김채욱
-        클라이언트가 입력한 새로운 job 정보를 호출
-    """
-    query = request.args.to_dict()
-    job = query.get('name')
-    column = query.get('column')
-    file = query.get('file')
-    read = query.get('read')
-    drop = query.get('drop')
-    task = task_list(read, drop)
-    return job, column, file, task
-
 def task_list(read, drop):
     """
         작성자 : 김채욱
         task_list 추가
     """
+    read = None if read == 'None' else read
+    drop = None if drop == 'None' else drop
+
+
     if read and drop:
         task_list = {
             "read": ["drop"],
@@ -42,18 +32,34 @@ def task_list(read, drop):
 
     return task_list
 
+def form_data():
+    """
+        작성자 : 김채욱
+        클라이언트가 입력한 새로운 job 정보를 호출
+    """
+    query = request.args.to_dict()
+    print(query)
+    job = query.get('job')
+    column = query.get('column')
+    file = query.get('file')
+    read = query.get('read')
+    drop = query.get('drop')
+    task = task_list(read, drop)
+    print(read, drop)
+    return job, column, file, task
 
-def post_data(job, column):
+
+def post_data(job, column, file, task):
     """
         작성자 : 김채욱
         새로운 job 생성
     """
     new = {
-        'jobid': uuid.uuid4(),
+        'job_id': uuid.uuid4(),
         'job_name': job,
-        'task_list': {"read": ["drop"], "drop": ["write"], "write": []},
+        'task_list': task,
         'property': {
-            "read": {"task_name": "read", "filename" : "path/to/a.csv", "sep": ","}, \
+            "read": {"task_name": "read", "filename" : file, "sep": ","}, \
             "drop": {"task_name": "drop", "column_name": column}, \
             "write": {"task_name": "write", "filename" : "path/to/b.csv", "sep": ","}}
     }
@@ -73,9 +79,8 @@ def petch_data(data):
 
 def get_single_id():
     query = request.args.to_dict()
-    job_id = query.get('job_id')
     print(query)
-    print(job_id)
+    job_id = query.get('job_id')
     return job_id
 
 
@@ -98,7 +103,7 @@ def get_single_job(data, job_id):
     job = None
 
     for ele in data:
-        if ele['jobid'] == job_id:
+        if ele['job_id'] == job_id:
             job = ele
             break
 

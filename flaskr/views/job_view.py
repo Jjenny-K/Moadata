@@ -10,13 +10,12 @@ class JobView(MethodView):
         job_id = get_single_id()
 
         if job_id:
-            return jsonify([ele for ele in self.data if ele['jobid'] == job_id][0]), 200
+            return jsonify([ele for ele in self.data if ele['job_id'] == job_id][0]), 200
         else:
             return jsonify(self.data), 200
 
     def post(self):
         job, column, file, task = form_data()
-        print(job, column, file, task)
         new_job = post_data(job, column, file, task)
         self.data.append(new_job)
         petch_data(self.data)
@@ -24,8 +23,8 @@ class JobView(MethodView):
 
     def delete(self):
         job_id = get_single_id()
-
-        self.data.pop([i for i in range(len(self.data)) if self.data[i]['jobid'] == job_id][0])
+        print(job_id)
+        self.data.pop([i for i in range(len(self.data)) if self.data[i]['job_id'] == job_id][0])
         return petch_data(self.data), 200
 
     def patch(self):
@@ -36,7 +35,7 @@ class JobView(MethodView):
         column = query.get('column')
 
         for ele in self.data:
-            if ele['jobid'] == job_id:
+            if ele['job_id'] == job_id:
                 ele['job_name'] = job
                 if ele['property']['drop']:
                     ele['property']['drop']["column_name"] = column

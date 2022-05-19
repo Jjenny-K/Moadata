@@ -49,6 +49,7 @@ class TaskRunView(View):
             # job_id와 맞는 task list check
             try:
                 data = get_all_jobs()
+                print(data)
                 job = get_single_job(data, job_id)
             except Exception as e:
                 return Response("{'error message': '지정한 작업이 없습니다.'}", status=400, mimetype='application/json')

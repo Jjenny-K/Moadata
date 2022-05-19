@@ -21,8 +21,8 @@ app.add_url_rule('/api/task-running', view_func=task_view)
 app.add_url_rule('/api/jobs', methods=['POST'], view_func=job_view)
 app.add_url_rule('/api/jobs', methods=['GET'], view_func=job_view)
 app.add_url_rule('/api/job', methods=['GET', 'PATCH', 'DELETE'], view_func=job_view)
-app.add_url_rule('/api/edit', methods=['GET'], view_func=edit_view)
-app.add_url_rule('/api/csv', methods=['GET'], view_func=csv_view)
+app.add_url_rule('/client/edit', methods=['GET'], view_func=edit_view)
+app.add_url_rule('/client/csv', methods=['GET'], view_func=csv_view)
 
 
 if __name__ == '__main__':

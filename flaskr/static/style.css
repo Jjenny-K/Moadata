@@ -10,7 +10,7 @@
     align-items: center;
     margin-top: 5%;
 }
-.job-list {
+.job-list, .get-job-section, .csv-section {
     text-align: center;
     background-color: #F7F7F9;
     padding: 5rem;
@@ -48,4 +48,8 @@
 
 a:hover {
     text-decoration-line: none;
+}
+
+.table td, .table th {
+    border-top: 4px solid #dee2e6;
 }
