@@ -1,4 +1,4 @@
-from flask import render_template, jsonify
+from flask import render_template
 from flask.views import View
 
 
@@ -10,12 +10,4 @@ class HomeView(View):
 
     def dispatch_request(self):
         return render_template(self.template_name)
-
-        # return jsonify({
-        #     'apis': [
-        #         'api/jobs',
-        #         'api/jobs?job_id=<str:pk>',
-        #         'api/task-running'
-        #     ]
-        # })
 

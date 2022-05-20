@@ -1,12 +1,6 @@
-import json
-import os
-import sys
-
-sys.path.append((os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))
-from config import basedir
 from flask import Flask
 
-from flaskr.views import HomeView, TaskRunView, JobView
+from flaskr.views import HomeView, TaskRunView, JobView, EditView, CsvView
 
 app = Flask(__name__)
 
@@ -28,22 +22,23 @@ app.config.from_mapping(
 """
 
 
-home_view = HomeView.as_view('home_view', template_name='create_job.html')
+# main API
 task_view = TaskRunView.as_view('task_view')
 job_view = JobView.as_view('detailjob')
 
-
-app.add_url_rule('/', view_func=home_view)
 app.add_url_rule('/api/jobs', methods=['GET', 'POST'], view_func=job_view)
 app.add_url_rule('/api/job', methods=['GET', 'PATCH', 'DELETE'], view_func=job_view)
 app.add_url_rule('/api/task-running', view_func=task_view)
 
-
-from flaskr.views import EditView, CsvView
+# client API
+home_view = HomeView.as_view('home_view', template_name='create_job.html')
 edit_view = EditView.as_view('edit_view', template_name='modify_job.html')
 csv_view = CsvView.as_view('csv_view', template_name='get_csv.html')
+
+app.add_url_rule('/', view_func=home_view)
 app.add_url_rule('/client/edit', methods=['GET'], view_func=edit_view)
 app.add_url_rule('/client/csv', methods=['GET'], view_func=csv_view)
+
 
 if __name__ == '__main__':
     app.run()
