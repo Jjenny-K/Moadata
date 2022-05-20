@@ -1,0 +1,17 @@
+services:
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - ./flaskr/data:/Moadata/flaskr/data
+    expose:
+      - 5000
+
+  nginx:
+    build: nginx:latest
+    ports:
+      - 80:80
+    volumes:
+      - ./nginx/conf.d:/etc/nginx/conf.d
+      - ./flaskr/templates:/staticfiles

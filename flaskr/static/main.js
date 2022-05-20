@@ -1,5 +1,4 @@
-// 배포시 localhost의 주소를 바꾸어 주어야 함
-const localhost = "http://127.0.0.1:5000";
+const localhost = window.location.href.split('/', 3).join('/');
 
 
 $(document).ready(function () {
@@ -247,7 +246,7 @@ function csvSuccessOrFail() {
         },
         error: function (err) {
             console.log("err:", err);
-            alert('실패하였습니다');
+            alert(`message: ${err.responseText}`);
         },
     })
 }
