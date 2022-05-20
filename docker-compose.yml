@@ -2,9 +2,9 @@ services:
   web:
     build:
       context: .
-    command: gunicorn flaskr:app -- bind 0.0.0.0:5000
+      dockerfile: Dockerfile
     volumes:
-      - ./flaskr/data:/app/flaskr/data
+      - ./flaskr/data:/Moadata/flaskr/data
     expose:
       - 5000
 

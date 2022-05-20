@@ -1,7 +1,8 @@
 FROM python:3.8
 
+RUN mkdir /Moadata
 WORKDIR /Moadata
-COPY . /Moadata
+ADD . /Moadata
 
 ENV PYTHONDONTWRITEBYTECODE 1
 ENV PYTHONUNBUFFERED 1
