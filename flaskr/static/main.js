@@ -1,5 +1,5 @@
 // 배포시 localhost의 주소를 바꾸어 주어야 함
-const localhost = "http://127.0.0.1:5000";
+const localhost = window.location.href.split('/', 3).join('/');
 
 
 $(document).ready(function () {
