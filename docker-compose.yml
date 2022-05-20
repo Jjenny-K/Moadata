@@ -1,0 +1,17 @@
+services:
+  web:
+    build:
+      context: .
+    command: gunicorn flaskr:app -- bind 0.0.0.0:5000
+    volumes:
+      - ./flaskr/data:/app/flaskr/data
+    expose:
+      - 5000
+
+  nginx:
+    build: nginx:latest
+    ports:
+      - 80:80
+    volumes:
+      - ./nginx/conf.d:/etc/nginx/conf.d
+      - ./flaskr/templates:/staticfiles
