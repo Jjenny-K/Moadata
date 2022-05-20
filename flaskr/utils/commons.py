@@ -161,7 +161,7 @@ class TaskRunningProcessor:
         csv.save(filepath)
 
         # csv to dataframe
-        self.dataframe = pd.read_csv(filepath, delimiter=task['sep'], encoding='cp949')
+        self.dataframe = pd.read_csv(filepath, delimiter=task['sep'], encoding='utf-8')
 
         return self.dataframe
 
