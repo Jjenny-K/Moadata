@@ -40,7 +40,8 @@ class TaskRunView(View, CRUDTask):
         if request.method == 'POST':
             request_csv = request.files['filename']
             job_id = request.form.get('job_id')
-
+            print(f'request_csv 넘어왔는지 확인: ${request_csv}')
+            print(f'job_id 넘어왔는지 확인: ${job_id}')
             # request_csv 형식 예외처리
             if request_csv.content_type != 'text/csv':
                 return Response("{'error message': 'CSV 파일을 업로드하세요.'}", status=400, mimetype='application/json')

@@ -189,7 +189,7 @@ function getJob() {
             alert(`jobId: ${jobId} 조회 성공`);
         },
         error: function (error) {
-            alert(error)
+            alert('해당 아이디가 없습니다')
             console.log(`jobId${jobId}조회 실패`);
         }
     })
