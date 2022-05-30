@@ -16,11 +16,7 @@
 ### 팀 노션 [GoTo](https://www.notion.so/Moadata-71d8398156a349cf9af67421970f3cfb)
 - 요구사항 분석, 정보 공유 및 프로젝트 진행을 위해 사용
 
-### 배포주소
-[Go To](http://52.78.203.26/client/)
-
-### API 명세
-[See Document](https://documenter.getpostman.com/view/16970494/UyxkmRe6)
+### 배포주소 [Go To](http://52.78.203.26)
 
 ## 과제 해석
 이 서비스는 client가 데이터를 다루는데 필요한 작업(job)을 사전에 정의해두고, 원하는 데이터와 작업을 입력하여 해당 작업을 실행하는 서비스라고 해석하였습니다.
@@ -48,6 +44,9 @@
 
 ### DFD Diagram
 <img src="./source/moadata_dfd.png" alt="dfd">
+
+### API 명세
+[See Document](https://documenter.getpostman.com/view/16970494/UyxkmRe6)
 
 ### Step to run
 ~~~
