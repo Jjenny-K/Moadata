@@ -1,5 +1,14 @@
 <img src="./source/logo.jpg" alt="logo">
 
+## 목차
+
+- [프로젝트 개요](#과제 해석)
+- [구현](#구현)
+- [DFD Diagram](#DFD Diagram)
+- [Step to run](#Step to run)
+- [Author](#Author)
+
+
 # Team_E_Business Tasks _ Moadata
 원티드 프리온보딩 코스_네번째 기업과제_모아데이타
 
@@ -41,13 +50,13 @@
 
 ### Step to run
 ~~~
-virtualenv -p python3 venv
-source venv/bin/activate
-pip install -r requirements.txt
+$ virtualenv -p python3 venv
+$ source venv/bin/activate
+$ pip install -r requirements.txt
 
-set FLASK_APP=flaskr
-set FLASK_ENV=development
-flask run
+$ set FLASK_APP=flaskr
+$ set FLASK_ENV=development
+$ flask run
 ~~~
 
 ## Author
