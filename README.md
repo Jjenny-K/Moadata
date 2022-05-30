@@ -2,12 +2,11 @@
 
 ## 목차
 
-- [프로젝트 개요](#과제 해석)
+- [프로젝트 개요](#과제-해석)
 - [구현](#구현)
-- [DFD Diagram](#DFD Diagram)
-- [Step to run](#Step to run)
+- [DFD Diagram](#DFD-Diagram)
+- [Step to run](#Step-to-run)
 - [Author](#Author)
-
 
 # Team_E_Business Tasks _ Moadata
 원티드 프리온보딩 코스_네번째 기업과제_모아데이타
