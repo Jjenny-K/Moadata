@@ -1,4 +1,6 @@
-<img src="./source/logo.jpg" alt="logo">
+<div align="center">
+  <img src="./source/logo.jpg" alt="logo">
+</div>
 
 ## 목차
 
