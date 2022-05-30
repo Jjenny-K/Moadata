@@ -2,13 +2,13 @@
 
 ## 목차
 
-- [프로젝트 개요](#과제-해석)
+- [프로젝트 개요](#Moadata_기업과제)
 - [구현](#구현)
 - [DFD Diagram](#DFD-Diagram)
 - [Step to run](#Step-to-run)
 - [Author](#Author)
 
-# Team_E_Business Tasks _ Moadata
+# Moadata_기업과제
 원티드 프리온보딩 코스_네번째 기업과제_모아데이타
 
 ### 팀 노션 [GoTo](https://www.notion.so/Moadata-71d8398156a349cf9af67421970f3cfb)
