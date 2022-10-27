@@ -4,19 +4,20 @@
 
 ## 목차
 
-- [프로젝트 개요](#Moadata_기업과제)
+- [프로젝트 개요](#moadata_기업과제)
+- [구현 요구사항](#구현-요구사항)
 - [구현](#구현)
-- [DFD Diagram](#DFD-Diagram)
-- [Step to run](#Step-to-run)
-- [Author](#Author)
+- [DFD Diagram](#dfd-diagram)
+- [Step to run](#step-to-run)
+- [Author](#author)
 
 # Moadata_기업과제
 원티드 프리온보딩 코스_네번째 기업과제_모아데이타
 
+### 배포주소 --> 현재 비용 문제로 인해 내려둔 상태입니다.
+
 ### 팀 노션 [GoTo](https://www.notion.so/Moadata-71d8398156a349cf9af67421970f3cfb)
 - 요구사항 분석, 정보 공유 및 프로젝트 진행을 위해 사용
-
-### 배포주소 [Go To](http://52.78.203.26)
 
 ## 과제 해석
 이 서비스는 client가 데이터를 다루는데 필요한 작업(job)을 사전에 정의해두고, 원하는 데이터와 작업을 입력하여 해당 작업을 실행하는 서비스라고 해석하였습니다.
@@ -46,7 +47,7 @@
 <img src="./source/moadata_dfd.png" alt="dfd">
 
 ### API 명세
-[See Document](https://documenter.getpostman.com/view/16970494/UyxkmRe6)
+--> 현재 비용 문제로 인해 내려둔 상태입니다.
 
 ### Step to run
 ~~~
